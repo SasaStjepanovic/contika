@@ -1,7 +1,9 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -40,7 +42,7 @@ public class LoginPage extends BasePage {
     public void enterPassword(String value){
         typeText(password,value, "Password input field");
     }
-    public void signin(){
+    public void signinButton(){
         clickElement(signin, "Signin button is pressed");
     }
 
@@ -55,5 +57,17 @@ public class LoginPage extends BasePage {
             compareText(loginErrorMessage,expectedText);
         }
 
+    }
+
+    public void getAttribute( String expectedValue){
+        getAttribute(signin,expectedValue);
+    }
+
+    public void hoverOverUserName() throws InterruptedException {
+        Actions actions = new Actions(driver);
+        Thread.sleep(2000);
+        actions.moveToElement(username).build().perform();
+        WebElement toolTipElement = driver.findElement(By.xpath("//div[contains(@class,'visible-lg')]//input[@name='username']"));
+        System.out.println("toltip element je: " + toolTipElement.getAttribute("name"));
     }
 }

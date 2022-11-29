@@ -17,12 +17,4 @@
         </classes>
     </test>
 
-<!--    <test name="Sindri Test">-->
-<!--        <classes>-->
-<!--            <class name="tests.startBooking"/>-->
-<!--        </classes>-->
-<!--    </test>-->
-
-
-
 </suite>
