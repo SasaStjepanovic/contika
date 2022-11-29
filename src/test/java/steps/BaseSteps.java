@@ -3,8 +3,12 @@ package steps;
 import excel.ExcelSupport;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import org.testng.Reporter;
+import pages.BasePage;
+import pages.LoginPage;
 import tests.BaseTest;
 
 import java.io.IOException;
@@ -26,11 +30,27 @@ public class BaseSteps extends BaseTest {
 
     @After
     public void tearDown() throws IOException {
-        quit();
+//        quit();
     }
 
     @Given("a user reads test data from {string} {string} by id {string}")
     public void aUserReadsTestDataFromById(String fileName, String sheetName, String id) throws Exception {
         data = new ExcelSupport().getDataByID(fileName, sheetName, id);
     }
+
+    @And("the landing-page is opened")
+    public void theLandingPageIsOpened() {
+        new BasePage(driver).checkUrlPage(data.get("urlBasePage"));
+    }
+
+    @And("user clicks login button")
+    public void userClicksLoginButton() {
+        new LoginPage(driver).clickLoginButton();
+    }
+
+    @When("user enters username and password")
+    public void userEntersUsernameAndPassword() throws InterruptedException {
+        new LoginPage(driver).signIn(data.get("userName"),data.get("password"),data.get("testType"),data.get("expectedText"));
+    }
+
 }
