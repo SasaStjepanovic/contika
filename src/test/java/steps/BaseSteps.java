@@ -5,6 +5,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Reporter;
 import pages.BasePage;
@@ -53,4 +54,28 @@ public class BaseSteps extends BaseTest {
         new LoginPage(driver).signIn(data.get("userName"),data.get("password"),data.get("testType"),data.get("expectedText"));
     }
 
+    @And("user clicks signin button")
+    public void userClicksSigninButton() {
+        new LoginPage(driver).clickLoginButton();
+    }
+
+    @And("hover")
+    public void hover() throws InterruptedException {
+        new LoginPage(driver).hoverOverUserName();
+    }
+
+    @And("signin again")
+    public void signinAgain() {
+        new LoginPage(driver).signinButton();
+    }
+
+    @Then("user should be verified successfully login")
+    public void userShouldBeVerifiedSuccessfullyLogin() {
+        new BasePage(driver).checkUrlPage(data.get("urlLicencesPage"));
+    }
+
+    @Then("user should be verified unsuccessfully login")
+    public void userShouldBeVerifiedUnsuccessfullyLogin() {
+        new LoginPage(driver).getAttribute(data.get("textValidationPage"));
+    }
 }
