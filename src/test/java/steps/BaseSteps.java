@@ -10,6 +10,7 @@ import io.cucumber.java.en.When;
 import org.testng.Reporter;
 import pages.BasePage;
 import pages.LoginPage;
+import pages.components.HeaderComponent;
 import tests.BaseTest;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class BaseSteps extends BaseTest {
 
     @After
     public void tearDown() throws IOException {
-//        quit();
+        quit();
     }
 
     @Given("a user reads test data from {string} {string} by id {string}")
@@ -51,12 +52,7 @@ public class BaseSteps extends BaseTest {
 
     @When("user enters username and password")
     public void userEntersUsernameAndPassword() throws InterruptedException {
-        new LoginPage(driver).signIn(data.get("userName"),data.get("password"),data.get("testType"),data.get("expectedText"));
-    }
-
-    @And("user clicks signin button")
-    public void userClicksSigninButton() {
-        new LoginPage(driver).clickLoginButton();
+        new LoginPage(driver).signIn(data.get("userName"),data.get("password"));
     }
 
     @And("hover")
@@ -64,18 +60,32 @@ public class BaseSteps extends BaseTest {
         new LoginPage(driver).hoverOverUserName();
     }
 
-    @And("signin again")
-    public void signinAgain() {
+    @And("user clicks sigin button")
+    public void userClicksSiginButton() {
         new LoginPage(driver).signinButton();
     }
 
-    @Then("user should be verified successfully login")
-    public void userShouldBeVerifiedSuccessfullyLogin() {
-        new BasePage(driver).checkUrlPage(data.get("urlLicencesPage"));
+    @Then("user should be verified login action")
+    public void userShouldBeVerifiedLoginAction() throws InterruptedException {
+        new LoginPage(driver).signinVerification(data.get("testType"),data.get("expectedText"), data.get("attributeType"));
     }
 
-    @Then("user should be verified unsuccessfully login")
-    public void userShouldBeVerifiedUnsuccessfullyLogin() {
-        new LoginPage(driver).getAttribute(data.get("textValidationPage"));
+    @Then("user should be verify all menu items")
+    public void userShouldBeVerifyAllMenuItems() throws InterruptedException {
+        HeaderComponent hp = new HeaderComponent(driver);
+        hp.clickMenu();
+        hp.checkMenuItems(new String[]{data.get("menuItems0"),data.get("menuItems1"),data.get("menuItems2")});
+    }
+
+    @And("user clicks signout button")
+    public void userClicksSignoutButton() {
+        HeaderComponent hp = new HeaderComponent(driver);
+        hp.clickProfil();
+        hp.clickLogout();
+    }
+
+    @Then("user should be verify logout action")
+    public void userShouldBeVerifyLogoutAction() {
+        new LoginPage(driver).signoutVerification(data.get("loginText"));
     }
 }

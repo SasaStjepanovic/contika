@@ -1,56 +1,27 @@
-Feature: Login scenarious include valid login and invalid login with combination of wrong credentials
+Feature: There are no any licence and it will be tested only functions of header
 
   @Continental
-  Scenario Outline: Login valid user
+  Scenario Outline: Check visibility of menu items
 
-    Given a user reads test data from "sindri" "login" by id "<TC_ID>"
-    And the landing-page is opened
+    Given a user reads test data from "sindri" "Licences" by id "<TC_ID>"
     And user clicks login button
     When user enters username and password
-    Then user should be verified successfully login
+    Then user should be verify all menu items
 
     Examples:
       | TC_ID  |
       | SI_001 |
 
   @Continental
-  Scenario Outline: Login invalid user(wrong password)
+  Scenario Outline: Sign out
 
-    Given a user reads test data from "sindri" "login" by id "<TC_ID>"
-    And the landing-page is opened
+    Given a user reads test data from "sindri" "Licences" by id "<TC_ID>"
     And user clicks login button
     When user enters username and password
-    Then user should be verified unsuccessfully login
-
+    And user clicks signout button
+    Then user should be verify logout action
 
     Examples:
       | TC_ID  |
-      | SI_002 |
+      | SI_001 |
 
-  @Continental
-  Scenario Outline: Login invalid user(wrong username)
-
-    Given a user reads test data from "sindri" "login" by id "<TC_ID>"
-    And the landing-page is opened
-    And user clicks login button
-    When user enters username and password
-    Then user should be verified unsuccessfully login
-
-
-    Examples:
-      | TC_ID  |
-      | SI_003 |
-
-#  @Continental
-#  Scenario Outline: Login sa HOVWERRRRRRRRR
-#
-##    Given a user reads test data from "sindri" "login" by id "<TC_ID>"
-#    And user clicks signin button
-#    And signin again
-#    And hover
-#
-#
-#    Examples:
-#      | TC_ID  |
-#      | SI_001 |
-##      | SI_002 |
