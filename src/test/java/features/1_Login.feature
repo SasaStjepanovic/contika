@@ -1,4 +1,4 @@
-Feature: Login scenarious include valid login and invalid login with combination of wrong credentials
+Feature: Login scenarios include valid login and invalid login with combination of wrong credentials
 
   @Continental
   Scenario Outline: Login valid user
