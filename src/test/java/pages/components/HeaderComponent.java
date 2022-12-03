@@ -19,108 +19,129 @@ public class HeaderComponent extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    @FindBy(xpath = "//*[@class='v-list-item__content']//div[text()='User management']")
+    WebElement userPage;
+    @FindBy(xpath = "//*[@class='v-list-item__content']//div[text()='Licence Overview']")
+    WebElement licencePage;
+    @FindBy(xpath = "//*[@class='v-list-item__content']//div[text()='Checklist management']")
+    WebElement checklistPage;
     @FindBy(css = "span.v-btn__content")
     WebElement menu;
-
     @FindBy(css = "#header-avatar")
     WebElement profil;
-
     @FindBy(css = "div.logout")
     WebElement signout;
-
     @FindBy(xpath = "//*[text()=' Account settings ']")
     WebElement accountSettings;
-
     @FindBy(css = "#input-firstname")
     WebElement accountFirstName;
-
     @FindBy(css = "#input-lastname")
     WebElement accountLastName;
-
     @FindBy(css = "button.warning")
     WebElement accountSettingsSave;
-
     @FindBy(xpath = "//button[contains(@disabled,'disabled')]")
     WebElement accountSettingsSaveDisbaled;
-
     @FindBy(xpath = "//*[contains(text(),'Your information was successfully saved')]")
     WebElement successfullySaved;
-
     @FindBy(xpath = "//*[text()='Ok']")
     WebElement accountSettingsOk;
-
     @FindBy(xpath = "//*[text()='Close']")
     WebElement accountSettingsClose;
-
     @FindBy(xpath = "//input[@id='input-firstname']/../../..//div[2]//*[@class='v-messages__message']")
     WebElement firstnameAccountEmptyMessage;
-
     @FindBy(xpath = "//input[@id='input-lastname']/../../..//div[2]//*[@class='v-messages__message']")
     WebElement lastnameAccountEmptyMessage;
+
+    public void navigateToMenu(String pageName) throws Exception {
+        switch (pageName.toLowerCase()) {
+            case "licence": {
+                navigateToLicencePage();
+            }
+            break;
+            case "user": {
+                navigateToUserPage();
+            }
+            break;
+            case "checklist": {
+                navigateToCheckListPage();
+            }
+            break;
+            default:
+                throw new Exception("No such page: " + pageName);
+        }
+    }
+    public void navigateToLicencePage(){
+        clickElement(licencePage,"licence page");
+    }
+    public void navigateToUserPage(){
+        clickElement(userPage,"user page");
+    }
+    public void navigateToCheckListPage(){
+        clickElement(checklistPage,"checklist page");
+    }
 
     public void isSaveButtonDisabled(String expectedValue, String attributeType){
         getAttribute(accountSettingsSaveDisbaled,expectedValue, attributeType);
     }
-
     public void clickAccount(){
         clickElement(accountSettings, "Account settings");
     }
     public void clickMenu(){
         clickElement(menu,"Menu button");
     }
-
     public void clickProfil(){
         clickElement(profil,"Profile button");
     }
-
     public void clickLogout(){
         clickElement(signout, "Logout button");
     }
-
     public void clickSaveButton(){
         clickElement(accountSettingsSave, "Save button Account settings ");
     }
-
     public void clickCloseButton(){
         clickElement(accountSettingsClose, "Close button Account settings ");
     }
-
     public void savedVerification(String expectedText){
         compareText(successfullySaved, expectedText);
     }
 
-    public void accountSettingsVerification(String expectedText1, String expectedText2){
+    public void accountSettingsMessageVerification(String expectedText1, String expectedText2){
         compareText(firstnameAccountEmptyMessage, expectedText1);
         compareText(lastnameAccountEmptyMessage, expectedText2);
-
     }
+
 
     public String randomFirstName() {
         Faker fakerData = new Faker();
-        long number = fakerData.number().randomNumber();
-        String firstname = "sasa_" + number;
-        System.out.println("Random first name is:" + firstname);
+        int number = fakerData.number().numberBetween(1, 9);
+        String randomFirst = "sasa_" + number;
+        System.out.println("Random first name exactly after generate is :" + randomFirst);
 
-        return firstname;
+        return randomFirst;
     }
+
 
     public String randomLastName() {
         Faker fakerData = new Faker();
-        long number = fakerData.number().randomNumber();
-        String lastname = "stjepanovic_" + number;
-        System.out.println("Random last name is:" + lastname);
-
-        return lastname;
+        int number = fakerData.number().numberBetween(10, 20);
+        String randomlast = "stjepanovic_" + number;
+        System.out.println("Random last name exactly after generate is :" + randomlast);
+        return randomlast;
     }
-
+    String randomFirstName = randomFirstName();
+    String randomlastName = randomLastName();
     public void enterFirstAndLastName(String randomType, String firstname, String lastname) throws InterruptedException {
         if(randomType.equalsIgnoreCase("random")) {
-            typeText(accountFirstName, randomFirstName(), "First name");
-            typeText(accountLastName, randomLastName(), "Last name");
+            typeText(accountFirstName, randomFirstName, "First name random je upisan nakon generisanja i jel isti kao generisanja 1?");
+            typeText(accountLastName, randomlastName, "Last name");
         }else{
             typeText(accountFirstName, firstname,"First name");
             typeText(accountLastName, lastname,"Last name");
-            }
+        }
+    }
+    public void verifyCredentialsAfterChanges( String attributeType){
+        getAttribute(accountFirstName,randomFirstName,attributeType);
+        getAttribute(accountLastName,randomlastName,attributeType);
     }
 
     public void checkMenuItems(String[] menuItems) throws InterruptedException {
