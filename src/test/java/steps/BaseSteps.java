@@ -102,7 +102,7 @@ public class BaseSteps extends BaseTest {
     @When("user changes first and last name")
     public void userChangesFirstAndLastName() throws InterruptedException {
         HeaderComponent hp = new HeaderComponent(driver);
-        hp.enterFirstAndLastName(data.get("randomType"),data.get("firstnameAS"),data.get("lastnameAS"));
+        hp.enterFirstAndLastName(data.get("randomTypeYesNo"),data.get("firstnameAS"),data.get("lastnameAS"));
     }
 
     @And("user clicks save button")
@@ -117,9 +117,9 @@ public class BaseSteps extends BaseTest {
         new HeaderComponent(driver).savedVerification(data.get("successfullySavedText"));
     }
 
-    @Then("user should be verify changed credentials")
-    public void userShouldBeVerifyChangedCredentials() {
-        new HeaderComponent(driver).verifyCredentialsAfterChanges(data.get("attributeType"));
+    @Then("user should be verify random changed credentials")
+    public void userShouldBeVerifyRandomChangedCredentials() {
+        new HeaderComponent(driver).verifyCredentialsAfterRandomChanges(data.get("attributeType"));
     }
 
     @And("user closes Account setting window")
@@ -134,9 +134,24 @@ public class BaseSteps extends BaseTest {
         hp.isSaveButtonDisabled(data.get("saveButtonDisabled"), data.get("attributeType"));
     }
 
-    @And("user click on menu and user management item")
-    public void userClickOnMenuAndUserManagementItem() {
+    @And("user clicks on menu and user management item")
+    public void userClicksOnMenuAndUserManagementItem() {
         new UserManagementPage(driver).openUserManagementPage();
+    }
 
+    @And("user verify that user management page is opened")
+    public void userVerifyThatUserManagementPageIsOpened() {
+        new BasePage(driver).checkUrlPage(data.get("urlBasePage"));
+
+    }
+
+    @And("user adds an technician")
+    public void userAddsAnTechnician() {
+        new UserManagementPage(driver).addTechnician();
+    }
+
+    @Then("user should be verify not random changed credentials")
+    public void userShouldBeVerifyNotRandomChangedCredentials() {
+        new HeaderComponent(driver).verifyCredentialsAfterNotRandomChanges(data.get("attributeType"),data.get("firstnameAS"),data.get("lastnameAS"));
     }
 }
