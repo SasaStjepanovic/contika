@@ -32,8 +32,7 @@ public class BasePage {
         System.out.println("Actual title is: " + actualTitle);
     }
 
-    public void
-    getAttribute(WebElement element, String expectedValue, String attributeType){
+    public void getAttribute(WebElement element, String expectedValue, String attributeType){
         String actualValue = element.getAttribute(attributeType);
         System.out.println("Actual value of element is : " + actualValue);
         Assert.assertEquals(actualValue, expectedValue);

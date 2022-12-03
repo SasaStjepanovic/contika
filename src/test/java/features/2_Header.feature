@@ -36,7 +36,8 @@ Feature: Header scenarios include checking and verification menu items, deep tes
     And user clicks save button
     And user clicks OK button in confirmation window
     And user closes Account setting window
-#    Then user should be check changed credentials
+    And user clicks account settings button
+    Then user should be verify changed credentials
 
     Examples:
       | TC_ID  |

@@ -11,6 +11,7 @@ import org.testng.Reporter;
 import pages.BasePage;
 import pages.GeneralPage;
 import pages.LoginPage;
+import pages.UserManagementPage;
 import pages.components.HeaderComponent;
 import tests.BaseTest;
 
@@ -91,10 +92,11 @@ public class BaseSteps extends BaseTest {
     }
 
     @And("user clicks account settings button")
-    public void userClicksAccountSettingsButton() {
+    public void userClicksAccountSettingsButton() throws InterruptedException {
         HeaderComponent hp = new HeaderComponent(driver);
         hp.clickProfil();
         hp.clickAccount();
+        Thread.sleep(2000);
     }
 
     @When("user changes first and last name")
@@ -115,9 +117,9 @@ public class BaseSteps extends BaseTest {
         new HeaderComponent(driver).savedVerification(data.get("successfullySavedText"));
     }
 
-    @Then("user should be check changed credentials")
-    public void userShouldBeCheckChangedCredentials() {
-
+    @Then("user should be verify changed credentials")
+    public void userShouldBeVerifyChangedCredentials() {
+        new HeaderComponent(driver).verifyCredentialsAfterChanges(data.get("attributeType"));
     }
 
     @And("user closes Account setting window")
@@ -128,7 +130,13 @@ public class BaseSteps extends BaseTest {
     @Then("user should be verify first and last name is empty and save button is disabled")
     public void userShouldBeVerifyFirstAndLastNameIsEmptyAndSaveButtonIsDisabled() {
         HeaderComponent hp = new HeaderComponent(driver);
-        hp.accountSettingsVerification(data.get("accountFirstEmptyMessage"), data.get("accountLastEmptyMessage"));
+        hp.accountSettingsMessageVerification(data.get("accountFirstEmptyMessage"), data.get("accountLastEmptyMessage"));
         hp.isSaveButtonDisabled(data.get("saveButtonDisabled"), data.get("attributeType"));
+    }
+
+    @And("user click on menu and user management item")
+    public void userClickOnMenuAndUserManagementItem() {
+        new UserManagementPage(driver).openUserManagementPage();
+
     }
 }
