@@ -130,8 +130,8 @@ public class HeaderComponent extends BasePage {
     }
     String randomFirstName = randomFirstName();
     String randomlastName = randomLastName();
-    public void enterFirstAndLastName(String randomType, String firstname, String lastname) throws InterruptedException {
-        if(randomType.equalsIgnoreCase("random")) {
+    public void enterFirstAndLastName(String randomTypeYesNo, String firstname, String lastname) throws InterruptedException {
+        if(randomTypeYesNo.equalsIgnoreCase("yes")) {
             typeText(accountFirstName, randomFirstName, "First name random je upisan nakon generisanja i jel isti kao generisanja 1?");
             typeText(accountLastName, randomlastName, "Last name");
         }else{
@@ -139,9 +139,14 @@ public class HeaderComponent extends BasePage {
             typeText(accountLastName, lastname,"Last name");
         }
     }
-    public void verifyCredentialsAfterChanges( String attributeType){
-        getAttribute(accountFirstName,randomFirstName,attributeType);
-        getAttribute(accountLastName,randomlastName,attributeType);
+    public void verifyCredentialsAfterRandomChanges( String attributeType) {
+//            getAttribute(accountFirstName, randomFirstName, attributeType);
+            getAttribute(accountLastName, randomlastName, attributeType);
+    }
+
+    public void verifyCredentialsAfterNotRandomChanges( String attributeType,String firstname,String lastname) {
+            getAttribute(accountFirstName, firstname, attributeType);
+            getAttribute(accountLastName, lastname, attributeType);
     }
 
     public void checkMenuItems(String[] menuItems) throws InterruptedException {

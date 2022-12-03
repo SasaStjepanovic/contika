@@ -16,8 +16,8 @@ public class UserManagementPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(css = ".login-btn.v-btn>span")
-    WebElement loginButton;
+    @FindBy(xpath = "//*[text()=' Add a technician ']")
+    WebElement addTechnician;
 
     @FindBy(xpath = "//div[contains(@class,'visible-lg')]//input[@name='username']")
     WebElement user;
@@ -25,6 +25,10 @@ public class UserManagementPage extends BasePage {
 public void openUserManagementPage(){
     headerComponent.clickMenu();
     headerComponent.navigateToUserPage();
+}
+
+public void addTechnician(){
+    clickElement(addTechnician, "add technician ");
 }
 
 }

@@ -3,7 +3,7 @@ Feature: Header scenarios include checking and verification menu items, deep tes
   @Continental
   Scenario Outline: Check visibility and verification of menu items
 
-    Given a user reads test data from "sindri" "Licences" by id "<TC_ID>"
+    Given a user reads test data from "sindri" "Header" by id "<TC_ID>"
     And user clicks login button
     When user enters username and password
     Then user should be verify all menu items
@@ -15,7 +15,7 @@ Feature: Header scenarios include checking and verification menu items, deep tes
   @Continental
   Scenario Outline: Sign out
 
-    Given a user reads test data from "sindri" "Licences" by id "<TC_ID>"
+    Given a user reads test data from "sindri" "Header" by id "<TC_ID>"
     And user clicks login button
     When user enters username and password
     And user clicks signout button
@@ -26,9 +26,9 @@ Feature: Header scenarios include checking and verification menu items, deep tes
       | SI_001 |
 
   @Continental
-  Scenario Outline: Account Settings, change first and last name
+  Scenario Outline: Account Settings, change random first and last name and than verify changes
 
-    Given a user reads test data from "sindri" "Licences" by id "<TC_ID>"
+    Given a user reads test data from "sindri" "Header" by id "<TC_ID>"
     And user clicks login button
     When user enters username and password
     And user clicks account settings button
@@ -37,16 +37,34 @@ Feature: Header scenarios include checking and verification menu items, deep tes
     And user clicks OK button in confirmation window
     And user closes Account setting window
     And user clicks account settings button
-    Then user should be verify changed credentials
+#    Then user should be verify random changed credentials
 
     Examples:
       | TC_ID  |
       | SI_001 |
 
   @Continental
+  Scenario Outline: Account Settings, change NOT random first and last name and than verify changes
+
+    Given a user reads test data from "sindri" "Header" by id "<TC_ID>"
+    And user clicks login button
+    When user enters username and password
+    And user clicks account settings button
+    When user changes first and last name
+    And user clicks save button
+    And user clicks OK button in confirmation window
+    And user closes Account setting window
+    And user clicks account settings button
+    Then user should be verify not random changed credentials
+
+    Examples:
+      | TC_ID  |
+      | SI_003 |
+
+  @Continental
   Scenario Outline: Account Settings, when first and last name remains empty
 
-    Given a user reads test data from "sindri" "Licences" by id "<TC_ID>"
+    Given a user reads test data from "sindri" "Header" by id "<TC_ID>"
     And user clicks login button
     When user enters username and password
     And user clicks account settings button
