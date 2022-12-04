@@ -11,6 +11,7 @@ import org.testng.Assert;
 import pages.BasePage;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class HeaderComponent extends BasePage {
 
@@ -74,6 +75,7 @@ public class HeaderComponent extends BasePage {
         clickElement(licencePage,"licence page");
     }
     public void navigateToUserPage(){
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         clickElement(userPage,"user page");
     }
     public void navigateToCheckListPage(){
@@ -110,7 +112,6 @@ public class HeaderComponent extends BasePage {
         compareText(lastnameAccountEmptyMessage, expectedText2);
     }
 
-
     public String randomFirstName() {
         Faker fakerData = new Faker();
         int number = fakerData.number().numberBetween(1, 9);
@@ -119,7 +120,6 @@ public class HeaderComponent extends BasePage {
 
         return randomFirst;
     }
-
 
     public String randomLastName() {
         Faker fakerData = new Faker();
@@ -140,7 +140,7 @@ public class HeaderComponent extends BasePage {
         }
     }
     public void verifyCredentialsAfterRandomChanges( String attributeType) {
-//            getAttribute(accountFirstName, randomFirstName, attributeType);
+            getAttribute(accountFirstName, randomFirstName, attributeType);
             getAttribute(accountLastName, randomlastName, attributeType);
     }
 
