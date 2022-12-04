@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.util.concurrent.TimeUnit;
+
 public class BasePage {
     public WebDriver driver;
 
@@ -68,6 +70,7 @@ public class BasePage {
     }
     public void checkUrlPage(String url) {
         String expextedUrl = "https://webportal-api-v2-2.val.eu-central-1.sindri.continental.cloud/" + url;
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         String actualUrl = driver.getCurrentUrl();
         System.out.println("Current url address: " + actualUrl);
         Assert.assertTrue(actualUrl.contains(expextedUrl), actualUrl);

@@ -34,7 +34,7 @@ public class BaseSteps extends BaseTest {
 
     @After
     public void tearDown() throws IOException {
-        quit();
+//        quit();
     }
 
     @Given("a user reads test data from {string} {string} by id {string}")
@@ -145,13 +145,28 @@ public class BaseSteps extends BaseTest {
 
     }
 
-    @And("user adds an technician")
-    public void userAddsAnTechnician() {
-        new UserManagementPage(driver).addTechnician();
-    }
-
     @Then("user should be verify not random changed credentials")
     public void userShouldBeVerifyNotRandomChangedCredentials() {
         new HeaderComponent(driver).verifyCredentialsAfterNotRandomChanges(data.get("attributeType"),data.get("firstnameAS"),data.get("lastnameAS"));
+    }
+
+    @When("user deletes first technician")
+    public void userDeletesFirstTechnician() {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.deleteFirstTechnician();
+    }
+
+    @When("user creates technician with random data")
+    public void userCreatesTechnicianWithRandomData() throws InterruptedException {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.addTechnician();
+        um.enterTehnicianData(data,data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"));
+        um.closeTechnician();
+    }
+
+    @Then("user should verify that all technicians are deleted")
+    public void userShouldVerifyThatAllTechniciansAreDeleted() {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.deleteAllTechnicians();
     }
 }

@@ -8,8 +8,9 @@ Feature: User management scenarios include checking and
     When user enters username and password
     And user clicks on menu and user management item
     And user verify that user management page is opened
-    And user adds an technician
-    Then user should be verify all menu items
+    When user creates technician with random data
+##    When user deletes first technician
+    Then user should verify that all technicians are deleted
 
     Examples:
       | TC_ID  |
