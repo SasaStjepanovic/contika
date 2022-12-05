@@ -28,17 +28,27 @@ public class BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", element);
     }
 
+    public void scroll(String x,String y){
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor)driver;
+        javascriptExecutor.executeScript("window.scrollBy("+x+","+y+")");
+    }
+
     public void compareText(WebElement element, String expectedText) {
         String actualTitle = element.getText();
         Assert.assertEquals(actualTitle, expectedText);
         System.out.println("Actual title is: " + actualTitle);
     }
-
+    public void comparePartOfText(WebElement element, String expectedText) throws InterruptedException {
+        String actualTitle = element.getText();
+        Thread.sleep(5000);
+        System.out.println("Actual title is: " + actualTitle);
+        Thread.sleep(500);
+        Assert.assertTrue(actualTitle.contains(expectedText), actualTitle);
+    }
     public void getAttribute(WebElement element, String expectedValue, String attributeType){
         String actualValue = element.getAttribute(attributeType);
         System.out.println("Actual value of element is : " + actualValue);
         Assert.assertEquals(actualValue, expectedValue);
-
     }
 
     public void clickElement(WebElement element, String log) {
@@ -46,6 +56,20 @@ public class BasePage {
 
         try {
             scrollToElement(element);
+            new Actions(driver).moveToElement(element).perform();
+            element.click();
+            System.out.println("Clicked element: " + log);
+        } catch (Exception e) {
+            e.printStackTrace();
+            element.click();
+            System.out.println("Clicked element: " + log);
+        }
+    }
+
+    public void clickElementNoScrool(WebElement element, String log) {
+        explicitWait(element);
+
+        try {
             new Actions(driver).moveToElement(element).perform();
             element.click();
             System.out.println("Clicked element: " + log);
