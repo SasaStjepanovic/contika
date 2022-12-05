@@ -165,8 +165,13 @@ public class BaseSteps extends BaseTest {
     }
 
     @Then("user should verify that all technicians are deleted")
-    public void userShouldVerifyThatAllTechniciansAreDeleted() {
+    public void userShouldVerifyThatAllTechniciansAreDeleted() throws InterruptedException {
         UserManagementPage um = new UserManagementPage(driver);
-        um.deleteAllTechnicians();
+        um.deleteAllTechnicians(data.get("rowNumber"));
+    }
+
+    @And("user check row numbers")
+    public void userCheckRowNumbers() {
+        new GeneralPage(driver).rowsPerPage(data.get("rowNumber"));
     }
 }

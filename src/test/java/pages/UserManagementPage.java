@@ -22,6 +22,8 @@ public class UserManagementPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    @FindBy(xpath = "//div[@class='v-alert__content']")
+    WebElement successfullyCreated;
     @FindBy(css = "#close-technician-modal")
     WebElement closeTechnicianForm;
     @FindBy(css = "#user-firstname")
@@ -45,48 +47,57 @@ public class UserManagementPage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'visible-lg')]//input[@name='username']")
     WebElement user;
 
-public void openUserManagementPage(){
-    headerComponent.clickMenu();
-    headerComponent.navigateToUserPage();
-}
-public void closeTechnician(){
-    clickElement(closeTechnicianForm, "close button is pressed");
-}
-public void clickCreate(){
-    clickElement(createTechnician, "create button is pressed ");
-}
-public void delet1stTechnician(){
-    clickElement(deleteTechnician, "brisi prvog");
-}
-public void addTechnician(){
+    public void openUserManagementPage() {
+        headerComponent.clickMenu();
+        headerComponent.navigateToUserPage();
+    }
+
+    GeneralPage gp = new GeneralPage(driver);
+    public void closeTechnician() {
+        clickElement(closeTechnicianForm, "close button is pressed");
+    }
+
+    public void clickCreate() {
+        clickElement(createTechnician, "create button is pressed ");
+    }
+
+    public void delet1stTechnician() {
+        clickElement(deleteTechnician, "brisi prvog");
+    }
+
+    public void addTechnician() {
         clickElement(addTechnician, "add technician ");
-}
-public void deleteFirstTechnician(){
-    GeneralPage gp = new GeneralPage(driver);
-    List<WebElement> listOfTechnicians = driver.findElements(By.xpath("//div[@class='v-data-table__wrapper']//tbody//tr"));
-    for (WebElement product: listOfTechnicians) {
-        if (product.getText().equals("No data available")) {
+    }
+
+    public void deleteFirstTechnician() {
+        GeneralPage gp = new GeneralPage(driver);
+        List<WebElement> listOfTechnicians = driver.findElements(By.xpath("//div[@class='v-data-table__wrapper']//tbody//tr"));
+        for (WebElement product : listOfTechnicians) {
+            if (product.getText().equals("No data available")) {
+                System.out.println("list of technicians are empty !!!");
+            } else {
+                clickElement(deleteTechnician, "delete technician button is pressed");
+                gp.clickConfirmOK();
+                gp.clickConfirmOK();
+            }
+        }
+    }
+
+
+    public void deleteAllTechnicians(String rowNumber) throws InterruptedException {
+        gp.rowsPerPage(rowNumber);
+        List<WebElement> listOfTechnicians = driver.findElements(By.xpath("//div[@class='v-data-table__wrapper']//tbody//tr"));
+        if (listOfTechnicians.get(0).getText().equals("No data available")) {
             System.out.println("list of technicians are empty !!!");
-        } else{
-            clickElement(deleteTechnician, "delete technician button is pressed");
-            gp.clickConfirmOK();
-            gp.clickConfirmOK();
+        } else {
+            for (int i = 0; i < listOfTechnicians.size(); i++) {
+                clickElementNoScrool(deleteTechnician, "delete technician button is pressed");
+                gp.clickConfirmOK();
+                Thread.sleep(200);
+                gp.clickConfirmOK();
+            }
         }
     }
-}
-public void deleteAllTechnicians(){
-    GeneralPage gp = new GeneralPage(driver);
-    List<WebElement> listOfTechnicians = driver.findElements(By.xpath("//div[@class='v-data-table__wrapper']//tbody//tr"));
-    if (listOfTechnicians.get(0).getText().equals("No data available")) {
-        System.out.println("list of technicians are empty !!!");
-    } else {
-        for (int i = 0; i < listOfTechnicians.size(); i++) {
-            clickElement(deleteTechnician, "delete technician button is pressed");
-            gp.clickConfirmOK();
-            gp.clickConfirmOK();
-        }
-    }
-}
 
     public String randomTechnicianFirstName() {
         Faker fakerData = new Faker();
@@ -112,9 +123,9 @@ public void deleteAllTechnicians(){
         return randomTechEmail;
     }
 
-    public void enterTehnicianData(Map<String, String> data,String randomTypeYesNo, String firstname, String lastname, String email) throws InterruptedException {
+    public void enterTehnicianData(Map<String, String> data, String randomTypeYesNo, String firstname, String lastname, String email) throws InterruptedException {
         int numTechnicans = Integer.parseInt(data.get("numTechnicians"));
-        if(randomTypeYesNo.equalsIgnoreCase("yes")) {
+        if (randomTypeYesNo.equalsIgnoreCase("yes")) {
             for (int i = 0; i < numTechnicans; i++) {
                 driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
                 typeText(technicianFirstName, randomTechnicianFirstName(), "First name random je upisan nakon generisanja i jel isti kao generisanja 1?");
@@ -123,10 +134,10 @@ public void deleteAllTechnicians(){
                 clickCreate();
                 new GeneralPage(driver).clickConfirmOK();
             }
-        }else{
-            typeText(technicianFirstName, firstname,"First name");
-            typeText(technicianLastName, lastname,"Last name");
-            typeText(technicianEmail, email,"Email");
+        } else {
+            typeText(technicianFirstName, firstname, "First name");
+            typeText(technicianLastName, lastname, "Last name");
+            typeText(technicianEmail, email, "Email");
         }
     }
 }
