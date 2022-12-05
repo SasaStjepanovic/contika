@@ -116,7 +116,7 @@ public class HeaderComponent extends BasePage {
         Faker fakerData = new Faker();
         int number = fakerData.number().numberBetween(1, 9);
         String randomFirst = "sasa_" + number;
-        System.out.println("Random first name exactly after generate is :" + randomFirst);
+        System.out.println("Random first name exactly after generate_1 is :" + randomFirst);
 
         return randomFirst;
     }
@@ -132,7 +132,7 @@ public class HeaderComponent extends BasePage {
     String randomlastName = randomLastName();
     public void enterFirstAndLastName(String randomTypeYesNo, String firstname, String lastname) throws InterruptedException {
         if(randomTypeYesNo.equalsIgnoreCase("yes")) {
-            typeText(accountFirstName, randomFirstName, "First name random je upisan nakon generisanja i jel isti kao generisanja 1?");
+            typeText(accountFirstName, randomFirstName, "First name random je upisan nakon generisanja jel isti kao generisanja_1?");
             typeText(accountLastName, randomlastName, "Last name");
         }else{
             typeText(accountFirstName, firstname,"First name");

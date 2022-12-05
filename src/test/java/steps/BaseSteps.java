@@ -156,8 +156,8 @@ public class BaseSteps extends BaseTest {
         um.deleteFirstTechnician();
     }
 
-    @When("user creates technician with random data")
-    public void userCreatesTechnicianWithRandomData() throws InterruptedException {
+    @When("user creates technician with data")
+    public void userCreatesTechnicianWithData() throws InterruptedException {
         UserManagementPage um = new UserManagementPage(driver);
         um.addTechnician();
         um.enterTehnicianData(data,data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"));
@@ -173,5 +173,15 @@ public class BaseSteps extends BaseTest {
     @And("user check row numbers")
     public void userCheckRowNumbers() {
         new GeneralPage(driver).rowsPerPage(data.get("rowNumber"));
+    }
+
+    @When("user creates two technicians with same data")
+    public void userCreatesTwoTechniciansWithSameData() throws InterruptedException {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.addTechnician();
+        um.enterTehnicianData(data,data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"));
+        um.enterTehnicianData(data,data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"));
+        um.verifyUserAlreadyExists(data.get("userAlreadyExists"));
+        um.closeTechnician();
     }
 }
