@@ -21,6 +21,8 @@ public class UserManagementPage extends BasePage {
         headerComponent = new HeaderComponent(driver);
         PageFactory.initElements(driver, this);
     }
+    @FindBy(xpath = "//*[contains(text(),' Username provided already exists ')]")
+    WebElement userAlreadyExists;
 
     @FindBy(xpath = "//div[@class='v-alert__content']")
     WebElement successfullyCreated;
@@ -53,6 +55,11 @@ public class UserManagementPage extends BasePage {
     }
 
     GeneralPage gp = new GeneralPage(driver);
+
+    public void verifyUserAlreadyExists(String expextedText){
+        compareText(userAlreadyExists, expextedText);
+    }
+
     public void closeTechnician() {
         clickElement(closeTechnicianForm, "close button is pressed");
     }
@@ -138,6 +145,8 @@ public class UserManagementPage extends BasePage {
             typeText(technicianFirstName, firstname, "First name");
             typeText(technicianLastName, lastname, "Last name");
             typeText(technicianEmail, email, "Email");
+            clickCreate();
+            new GeneralPage(driver).clickConfirmOK();
         }
     }
 }
