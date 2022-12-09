@@ -128,18 +128,18 @@ public class HeaderComponent extends BasePage {
         System.out.println("Random last name exactly after generate is :" + randomlast);
         return randomlast;
     }
-    String randomFirstName = randomFirstName();
-    String randomlastName = randomLastName();
-    public void enterFirstAndLastName(String randomTypeYesNo, String firstname, String lastname) throws InterruptedException {
+//    String randomFirstName = randomFirstName();
+//    String randomlastName = randomLastName();
+    public void enterFirstAndLastName(String randomTypeYesNo, String firstname, String lastname, String randomFirstname, String randomLastname) throws InterruptedException {
         if(randomTypeYesNo.equalsIgnoreCase("yes")) {
-            typeText(accountFirstName, randomFirstName, "First name random je upisan nakon generisanja jel isti kao generisanja_1?");
-            typeText(accountLastName, randomlastName, "Last name");
+            typeText(accountFirstName, randomFirstname, "First name random je upisan nakon generisanja jel isti kao generisanja_1?");
+            typeText(accountLastName, randomLastname, "Last name");
         }else{
             typeText(accountFirstName, firstname,"First name");
             typeText(accountLastName, lastname,"Last name");
         }
     }
-    public void verifyCredentialsAfterRandomChanges( String attributeType) {
+    public void verifyCredentialsAfterRandomChanges( String attributeType,String randomFirstName, String randomlastName) {
             getAttribute(accountFirstName, randomFirstName, attributeType);
             getAttribute(accountLastName, randomlastName, attributeType);
     }

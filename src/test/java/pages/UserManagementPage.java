@@ -21,6 +21,8 @@ public class UserManagementPage extends BasePage {
         headerComponent = new HeaderComponent(driver);
         PageFactory.initElements(driver, this);
     }
+    @FindBy(xpath = "//*[contains(text(),'E-mail must be valid')]")
+    WebElement invalidEmail;
     @FindBy(xpath = "//*[contains(text(),' Username provided already exists ')]")
     WebElement userAlreadyExists;
 
@@ -28,6 +30,9 @@ public class UserManagementPage extends BasePage {
     WebElement successfullyCreated;
     @FindBy(css = "#close-technician-modal")
     WebElement closeTechnicianForm;
+
+    @FindBy(css = "#close-edit-technician-modal")
+    WebElement closeEditTechnicianForm;
     @FindBy(css = "#user-firstname")
     WebElement technicianFirstName;
     @FindBy(css = "#user-lastname")
@@ -35,16 +40,39 @@ public class UserManagementPage extends BasePage {
     @FindBy(css = "#user-email")
     WebElement technicianEmail;
 
-    @FindBy(xpath = "//*[text()=' Create ']")
+    @FindBy(css = "#technician-edit-firstname")
+    WebElement editTechnicianFristName;
+
+    @FindBy(css = "#technician-edit-lastname")
+    WebElement editTechnicianLastName;
+
+    @FindBy(css = "#technician-edit-username")
+    WebElement editTechnicianEmail;
+
+    @FindBy(css = "#update-technician")
+    WebElement updateInformation;
+
+    @FindBy(xpath = "//*[text()=' Create ']/..")
     WebElement createTechnician;
     @FindBy(css = "#delete-technician-0")
     WebElement deleteTechnician;
+
+    @FindBy(css = "#edit-technician-0")
+    WebElement editTechnician;
 
     @FindBy(xpath = "//div[@class='v-data-table__wrapper']//tbody//tr")
     WebElement listOfTechnician;
 
     @FindBy(xpath = "//*[text()=' Add a technician ']")
     WebElement addTechnician;
+
+    @FindBy(css = "#remove-technician")
+    WebElement removeAllocatedButton;
+    @FindBy(xpath = "//*[text()='Licence allocated']")
+    WebElement licenceAllocatedButton;
+
+    @FindBy(xpath = "//*[text()='Device associated']")
+    WebElement deviceAllocatedButton;
 
     @FindBy(xpath = "//div[contains(@class,'visible-lg')]//input[@name='username']")
     WebElement user;
@@ -56,14 +84,23 @@ public class UserManagementPage extends BasePage {
 
     GeneralPage gp = new GeneralPage(driver);
 
+    public void clickEditButton(){
+        clickElement(editTechnician, "edit technician button");
+    }
     public void verifyUserAlreadyExists(String expextedText){
         compareText(userAlreadyExists, expextedText);
+    }
+    public void verifyInvalidEmail(String expextedText){
+        compareText(invalidEmail,expextedText);
     }
 
     public void closeTechnician() {
         clickElement(closeTechnicianForm, "close button is pressed");
     }
 
+    public void closeEditTechnician(){
+        clickElement(closeEditTechnicianForm,"edit technician winodw is closed");
+    }
     public void clickCreate() {
         clickElement(createTechnician, "create button is pressed ");
     }
@@ -109,7 +146,7 @@ public class UserManagementPage extends BasePage {
     public String randomTechnicianFirstName() {
         Faker fakerData = new Faker();
         int number = fakerData.number().numberBetween(1, 99);
-        String randomTechFirstName = "tech_FirstName_" + number;
+        String randomTechFirstName = "tech_FirstName_Sasa_" + number;
         System.out.println("Random technician first name exactly after generate is :" + randomTechFirstName);
         return randomTechFirstName;
     }
@@ -117,7 +154,7 @@ public class UserManagementPage extends BasePage {
     public String randomTechnicianLastName() {
         Faker fakerData = new Faker();
         int number = fakerData.number().numberBetween(99, 199);
-        String randomTechlastName = "tech_LastNae_" + number;
+        String randomTechlastName = "tech_LastName_Sasa_" + number;
         System.out.println("Random technician last name exactly after generate is :" + randomTechlastName);
         return randomTechlastName;
     }
@@ -125,10 +162,11 @@ public class UserManagementPage extends BasePage {
     public String randomTechnicianEmail() {
         Faker fakerData = new Faker();
         int number = fakerData.number().numberBetween(1, 49);
-        String randomTechEmail = "technician_+" + number + "@conti.com";
+        String randomTechEmail = "technician_sasa+" + number + "@conti.com";
         System.out.println("Random technician email exactly after generate is :" + randomTechEmail);
         return randomTechEmail;
     }
+
 
     public void enterTehnicianData(Map<String, String> data, String randomTypeYesNo, String firstname, String lastname, String email) throws InterruptedException {
         int numTechnicans = Integer.parseInt(data.get("numTechnicians"));
@@ -145,8 +183,52 @@ public class UserManagementPage extends BasePage {
             typeText(technicianFirstName, firstname, "First name");
             typeText(technicianLastName, lastname, "Last name");
             typeText(technicianEmail, email, "Email");
-            clickCreate();
+            if (createTechnician.isEnabled()){
+                clickCreate();
+                new GeneralPage(driver).clickConfirmOK();
+            } else {
+                System.out.println("Click button is not enabled");
+            }
+
+        }
+    }
+
+    public void editTechnician(String randomTypeYesNo,String firstname, String lastname, String email, String randomFirst, String randomLast, String randomEmail){
+        clickEditButton();
+        if (randomTypeYesNo.equalsIgnoreCase("yes")) {
+            driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            typeText(editTechnicianFristName, randomFirst, "Random First name after editing");
+            typeText(editTechnicianLastName, randomLast, "Random Last name after editing");
+            typeText(editTechnicianEmail, randomEmail, "Random Email");
+            clickElement(updateInformation, "update information button after editing");
             new GeneralPage(driver).clickConfirmOK();
+            closeEditTechnician();
+            }
+         else {
+            typeText(editTechnicianFristName, firstname, "First name");
+            typeText(editTechnicianLastName, lastname, "Last name");
+            typeText(editTechnicianEmail, email, "Email");
+            clickElement(updateInformation, "update information button");
+            new GeneralPage(driver).clickConfirmOK();
+            closeEditTechnician();
+        }
+    }
+
+    public void verifyEditedTechnicians( String attributeType,String randomFirsTechnician, String randomLastTechnician, String randomEmailTechnician) {
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        getAttribute(editTechnicianFristName, randomFirsTechnician, attributeType);
+        getAttribute(editTechnicianLastName, randomLastTechnician, attributeType);
+        getAttribute(editTechnicianEmail, randomEmailTechnician, attributeType);
+        closeEditTechnician();
+    }
+
+    public void licenceAllocated(){
+        clickElement(editTechnician, "edit technician button");
+        try{
+            clickElement(licenceAllocatedButton, "licence allocated button");
+        } catch (Exception e) {
+            e.printStackTrace();
+            clickElement(licenceAllocatedButton, "licence allocated button");
         }
     }
 }

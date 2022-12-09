@@ -26,10 +26,29 @@ public class BaseSteps extends BaseTest {
     String env = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("env");
     String wait = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("wait");
 
+    UserManagementPage um = new UserManagementPage(driver);
+
+    String randomFirstNameTechnician;
+    String randomLastNameTechnician;
+    String randomEmailTechnician;
+    HeaderComponent hc = new HeaderComponent(driver);
+    String randomFirstName;
+    String randomLastName;
+    String randomEmail;
+
+
+
     @Before
     public void setup() throws Exception {
         init(browser, wait);
         openSindriApp(env);
+        randomFirstName = hc.randomFirstName();
+        randomLastName = hc.randomLastName();
+
+        randomFirstNameTechnician = um.randomTechnicianFirstName();
+        randomLastNameTechnician = um.randomTechnicianLastName();
+        randomEmailTechnician = um.randomTechnicianEmail();
+
     }
 
     @After
@@ -102,7 +121,7 @@ public class BaseSteps extends BaseTest {
     @When("user changes first and last name")
     public void userChangesFirstAndLastName() throws InterruptedException {
         HeaderComponent hp = new HeaderComponent(driver);
-        hp.enterFirstAndLastName(data.get("randomTypeYesNo"),data.get("firstnameAS"),data.get("lastnameAS"));
+        hp.enterFirstAndLastName(data.get("randomTypeYesNo"),data.get("firstnameAS"),data.get("lastnameAS"), randomFirstName, randomLastName);
     }
 
     @And("user clicks save button")
@@ -119,7 +138,7 @@ public class BaseSteps extends BaseTest {
 
     @Then("user should be verify random changed credentials")
     public void userShouldBeVerifyRandomChangedCredentials() {
-        new HeaderComponent(driver).verifyCredentialsAfterRandomChanges(data.get("attributeType"));
+        new HeaderComponent(driver).verifyCredentialsAfterRandomChanges(data.get("attributeType"),randomFirstName, randomLastName);
     }
 
     @And("user closes Account setting window")
@@ -181,7 +200,45 @@ public class BaseSteps extends BaseTest {
         um.addTechnician();
         um.enterTehnicianData(data,data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"));
         um.enterTehnicianData(data,data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"));
+    }
+
+    @Then("user should verify that is not posible to create user with the same data")
+    public void userShouldVerifyThatIsNotPosibleToCreateUserWithTheSameData() {
+        UserManagementPage um = new UserManagementPage(driver);
         um.verifyUserAlreadyExists(data.get("userAlreadyExists"));
         um.closeTechnician();
+    }
+
+    @Then("user should verify that is not posible to create user with the invalid email address")
+    public void userShouldVerifyThatIsNotPosibleToCreateUserWithTheInvalidEmailAddress() {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.verifyInvalidEmail(data.get("invalidEmailMessage"));
+    }
+
+    @When("user creates technician with invalid email address")
+    public void userCreatesTechnicianWithInvalidEmailAddress() throws InterruptedException {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.addTechnician();
+        um.enterTehnicianData(data,data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"));
+    }
+
+    @When("user edit personal information of existing technician")
+    public void userEditPersonalInformationOfExistingTechnician() {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.editTechnician(data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"), randomFirstNameTechnician, randomLastNameTechnician, randomEmailTechnician);
+    }
+
+    @When("user edit licence allocated of existing technician")
+    public void userEditLicenceAllocatedOfExistingTechnician() {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.licenceAllocated();
+        um.closeEditTechnician();
+    }
+
+    @Then("user should verify that technician is edited")
+    public void userShouldVerifyThatTechnicianIsEdited() {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.clickEditButton();
+        um.verifyEditedTechnicians(data.get("attributeType"), randomFirstNameTechnician, randomLastNameTechnician, randomEmailTechnician);
     }
 }

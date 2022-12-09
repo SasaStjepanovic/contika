@@ -94,7 +94,7 @@ public class BasePage {
     }
     public void checkUrlPage(String url) {
         String expextedUrl = "https://webportal-api-v2-2.val.eu-central-1.sindri.continental.cloud/" + url;
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         String actualUrl = driver.getCurrentUrl();
         System.out.println("Current url address: " + actualUrl);
         Assert.assertTrue(actualUrl.contains(expextedUrl), actualUrl);
@@ -117,6 +117,7 @@ public class BasePage {
             System.out.println("Entered text: " + text + " to element: " + log);
         }
     }
+
 
 }
 
