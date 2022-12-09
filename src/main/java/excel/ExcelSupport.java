@@ -13,6 +13,7 @@ import java.util.Map;
 public class ExcelSupport {
 
     String prefixPath = "src/test/test_data/";
+    String prefixPathOutput = "src/test/test_data/";
 
     public Map<String, String> getExcelByRow(String fileName, String sheetName, String rowNum) throws IOException {
 
@@ -64,4 +65,26 @@ public class ExcelSupport {
 
         return data;
     }
+
+//    public Map<String, String> setExcelByRow(String fileName, String sheetName, String rowNum) throws IOException {
+//
+//        FileInputStream fis = new FileInputStream(prefixPathOutput + fileName + ".xlsx");
+//        Workbook workbook = new XSSFWorkbook(fis);
+//        Sheet sheet = workbook.getSheet(sheetName);
+//
+//        int row = Integer.parseInt(rowNum);
+//
+//        int lastColumnNum = sheet.getRow(0).getLastCellNum();
+//
+//        Map<String, String> data = new HashMap<>();
+//
+//        for (int i = 0; i < lastColumnNum; i++) {
+//            data.put(
+//                    sheet.getRow(0).getCell(i).setCellValue("Age"),
+//                    sheet.getRow((row + 2)).getCell(i).getStringCellValue()
+//                    );
+//        }
+//        return data;
+//    }
+
 }
