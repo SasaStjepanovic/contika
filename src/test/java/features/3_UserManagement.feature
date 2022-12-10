@@ -9,6 +9,7 @@ Feature: User management scenarios include add/edit/delete technicians from the 
     And user clicks on menu and user management item
     And user verify that user management page is opened
     When user creates technician with data
+    When user delete all technicians
     Then user should verify that all technicians are deleted
 
     Examples:
@@ -24,6 +25,7 @@ Feature: User management scenarios include add/edit/delete technicians from the 
     And user clicks on menu and user management item
     And user verify that user management page is opened
     When user creates technician with data
+    When user delete all technicians
     Then user should verify that all technicians are deleted
 
     Examples:
@@ -40,6 +42,7 @@ Feature: User management scenarios include add/edit/delete technicians from the 
     And user verify that user management page is opened
     When user creates two technicians with same data
     Then user should verify that is not posible to create user with the same data
+    When user delete all technicians
     Then user should verify that all technicians are deleted
 
     Examples:
@@ -72,6 +75,7 @@ Feature: User management scenarios include add/edit/delete technicians from the 
     When user creates technician with data
     When user edit personal information of existing technician
     Then user should verify that technician is edited
+    When user delete all technicians
     Then user should verify that all technicians are deleted
 
     Examples:
@@ -88,6 +92,8 @@ Feature: User management scenarios include add/edit/delete technicians from the 
     And user verify that user management page is opened
     When user creates technician with data
     When user edit licence allocated of existing technician
+    Then user should verify clickable of remove allocation button
+    When user delete all technicians
     Then user should verify that all technicians are deleted
 
     Examples:

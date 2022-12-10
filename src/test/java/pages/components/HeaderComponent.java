@@ -77,6 +77,13 @@ public class HeaderComponent extends BasePage {
     public void navigateToUserPage(){
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         clickElement(userPage,"user page");
+        String expextedUrl = "https://webportal-api-v2-2.val.eu-central-1.sindri.continental.cloud/users";
+        String actualUrl = driver.getCurrentUrl();
+        if (expextedUrl.equals(actualUrl)){
+            System.out.println("Do nothing, User Management page already opened");
+        } else {
+            clickElement(userPage,"user page");
+        }
     }
     public void navigateToCheckListPage(){
         clickElement(checklistPage,"checklist page");

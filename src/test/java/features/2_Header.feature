@@ -1,7 +1,7 @@
 Feature: Header scenarios include checking and verification menu items, deep testing of Account settings and Logout
 
   @Continental
-  Scenario Outline: Check visibility and verification of menu items
+  Scenario Outline:Go to the Header: Check visibility of menu items
 
     Given a user reads test data from "sindri" "Header" by id "<TC_ID>"
     And user clicks login button
@@ -13,7 +13,7 @@ Feature: Header scenarios include checking and verification menu items, deep tes
       | SI_001 |
 
   @Continental
-  Scenario Outline: Sign out
+  Scenario Outline: Go to the Header: Sign out
 
     Given a user reads test data from "sindri" "Header" by id "<TC_ID>"
     And user clicks login button
@@ -26,7 +26,7 @@ Feature: Header scenarios include checking and verification menu items, deep tes
       | SI_001 |
 
   @Continental
-  Scenario Outline: Account Settings, change random first and last name and than verify changes
+  Scenario Outline: Go to the Header: Account Settings, change random first and last name and than verify changes
 
     Given a user reads test data from "sindri" "Header" by id "<TC_ID>"
     And user clicks login button
@@ -44,7 +44,7 @@ Feature: Header scenarios include checking and verification menu items, deep tes
       | SI_001 |
 
   @Continental
-  Scenario Outline: Account Settings, change NOT random first and last name and than verify changes
+  Scenario Outline: Go to the Header: Account Settings, change NOT random first and last name and than verify changes
 
     Given a user reads test data from "sindri" "Header" by id "<TC_ID>"
     And user clicks login button
@@ -62,7 +62,7 @@ Feature: Header scenarios include checking and verification menu items, deep tes
       | SI_003 |
 
   @Continental
-  Scenario Outline: Account Settings, when first and last name remains empty
+  Scenario Outline: Go to the Header: Account Settings, when first and last name remains empty
 
     Given a user reads test data from "sindri" "Header" by id "<TC_ID>"
     And user clicks login button
