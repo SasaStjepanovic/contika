@@ -53,7 +53,7 @@ public class BaseSteps extends BaseTest {
 
     @After
     public void tearDown() throws IOException {
-//        quit();
+        quit();
     }
 
     @Given("a user reads test data from {string} {string} by id {string}")
@@ -183,12 +183,6 @@ public class BaseSteps extends BaseTest {
         um.closeTechnician();
     }
 
-    @Then("user should verify that all technicians are deleted")
-    public void userShouldVerifyThatAllTechniciansAreDeleted() throws InterruptedException {
-        UserManagementPage um = new UserManagementPage(driver);
-        um.deleteAllTechnicians(data.get("rowNumber"));
-    }
-
     @And("user check row numbers")
     public void userCheckRowNumbers() {
         new GeneralPage(driver).rowsPerPage(data.get("rowNumber"));
@@ -240,5 +234,21 @@ public class BaseSteps extends BaseTest {
         UserManagementPage um = new UserManagementPage(driver);
         um.clickEditButton();
         um.verifyEditedTechnicians(data.get("attributeType"), randomFirstNameTechnician, randomLastNameTechnician, randomEmailTechnician);
+    }
+
+    @Then("user should verify clickable of remove allocation button")
+    public void userShouldVerifyClickableOfRemoveAllocationButton() {
+        new UserManagementPage(driver).verifyRemoveAllocationButton(data.get("removeAllocationButtonText"));
+    }
+
+    @When("user delete all technicians")
+    public void userDeleteAllTechnicians() throws InterruptedException {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.deleteAllTechnicians(data.get("rowNumber"));
+    }
+
+    @Then("user should verify that all technicians are deleted")
+    public void userShouldVerifyThatAllTechniciansAreDeleted() {
+        new UserManagementPage(driver).verifyTechnicianListEmpty();
     }
 }

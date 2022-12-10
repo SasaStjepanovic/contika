@@ -71,6 +71,9 @@ public class UserManagementPage extends BasePage {
     @FindBy(xpath = "//*[text()='Licence allocated']")
     WebElement licenceAllocatedButton;
 
+    @FindBy(xpath = "//*[text()=' Remove allocation ']")
+    WebElement removeAllocationButton;
+
     @FindBy(xpath = "//*[text()='Device associated']")
     WebElement deviceAllocatedButton;
 
@@ -229,6 +232,24 @@ public class UserManagementPage extends BasePage {
         } catch (Exception e) {
             e.printStackTrace();
             clickElement(licenceAllocatedButton, "licence allocated button");
+        }
+    }
+
+    public void verifyRemoveAllocationButton(String expextedText){
+        if (!removeAllocatedButton.isEnabled()){
+            compareText(removeAllocationButton, expextedText);
+        } else {
+            System.out.println("Remove button is enabled");
+            clickElement(removeAllocatedButton, "Remove allocation button is pressed");
+        }
+    }
+
+    public void verifyTechnicianListEmpty(){
+        List<WebElement> listOfTechnicians = driver.findElements(By.xpath("//div[@class='v-data-table__wrapper']//tbody//tr"));
+        if (listOfTechnicians.get(0).getText().equals("No data available")) {
+            System.out.println("list of technicians are empty !!!");
+        } else {
+            System.out.println("There are still exist technicians at the list");
         }
     }
 }
