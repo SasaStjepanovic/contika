@@ -34,9 +34,6 @@ public class BaseSteps extends BaseTest {
     HeaderComponent hc = new HeaderComponent(driver);
     String randomFirstName;
     String randomLastName;
-    String randomEmail;
-
-
 
     @Before
     public void setup() throws Exception {
@@ -48,7 +45,6 @@ public class BaseSteps extends BaseTest {
         randomFirstNameTechnician = um.randomTechnicianFirstName();
         randomLastNameTechnician = um.randomTechnicianLastName();
         randomEmailTechnician = um.randomTechnicianEmail();
-
     }
 
     @After
@@ -250,5 +246,24 @@ public class BaseSteps extends BaseTest {
     @Then("user should verify that all technicians are deleted")
     public void userShouldVerifyThatAllTechniciansAreDeleted() {
         new UserManagementPage(driver).verifyTechnicianListEmpty();
+    }
+
+    @When("user searches one of technicians")
+    public void userSearchesOneOfTechnicians() {
+        new UserManagementPage(driver).serachTehcnican(data.get("searchTechnician"));
+    }
+
+    @Then("user should verify searched technician")
+    public void userShouldVerifySearchedTechnician() throws InterruptedException {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.VerifySearchedText(data.get("searchedTechnician"));
+        um.clearSearch(data.get("emptySearch"));
+    }
+
+    @Then("user should verify searched technician is not displayed")
+    public void userShouldVerifySearchedTechnicianIsNotDisplayed() {
+        UserManagementPage um = new UserManagementPage(driver);
+        um.verifyTechnicianListEmpty();
+        um.clearSearch(data.get("emptySearch"));
     }
 }

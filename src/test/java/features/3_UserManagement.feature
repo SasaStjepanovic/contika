@@ -1,38 +1,6 @@
 Feature: User management scenarios include add/edit/delete technicians from the list
 
   @Continental
-  Scenario Outline: Go to the User Management section, add one technician with random data and delete it
-
-    Given a user reads test data from "sindri" "UserManagement" by id "<TC_ID>"
-    And user clicks login button
-    When user enters username and password
-    And user clicks on menu and user management item
-    And user verify that user management page is opened
-    When user creates technician with data
-    When user delete all technicians
-    Then user should verify that all technicians are deleted
-
-    Examples:
-      | TC_ID  |
-      | SI_001 |
-
-  @Continental
-  Scenario Outline: Go to the User Management section, add more technicians with random data and delete them
-
-    Given a user reads test data from "sindri" "UserManagement" by id "<TC_ID>"
-    And user clicks login button
-    When user enters username and password
-    And user clicks on menu and user management item
-    And user verify that user management page is opened
-    When user creates technician with data
-    When user delete all technicians
-    Then user should verify that all technicians are deleted
-
-    Examples:
-      | TC_ID  |
-      | SI_003 |
-
-  @Continental
   Scenario Outline: Go to the User Management section, try to add two technicians with the same email address (negative scenario)
 
     Given a user reads test data from "sindri" "UserManagement" by id "<TC_ID>"
@@ -99,3 +67,71 @@ Feature: User management scenarios include add/edit/delete technicians from the 
     Examples:
       | TC_ID  |
       | SI_001 |
+
+  @Continental
+  Scenario Outline: Go to the User Management section, add one technician with random data and delete it
+
+    Given a user reads test data from "sindri" "UserManagement" by id "<TC_ID>"
+    And user clicks login button
+    When user enters username and password
+    And user clicks on menu and user management item
+    And user verify that user management page is opened
+    When user creates technician with data
+    When user delete all technicians
+    Then user should verify that all technicians are deleted
+
+    Examples:
+      | TC_ID  |
+      | SI_001 |
+
+  @Continental
+  Scenario Outline: Go to the User Management section, add more technicians with random data and delete them
+
+    Given a user reads test data from "sindri" "UserManagement" by id "<TC_ID>"
+    And user clicks login button
+    When user enters username and password
+    And user clicks on menu and user management item
+    And user verify that user management page is opened
+    When user creates technician with data
+    When user delete all technicians
+    Then user should verify that all technicians are deleted
+
+    Examples:
+      | TC_ID  |
+      | SI_003 |
+
+  @Continental
+  Scenario Outline: Go to the User Management section, add technician with not random data and search one of them
+
+    Given a user reads test data from "sindri" "UserManagement" by id "<TC_ID>"
+    And user clicks login button
+    When user enters username and password
+    And user clicks on menu and user management item
+    And user verify that user management page is opened
+    When user creates technician with data
+    When user searches one of technicians
+    Then user should verify searched technician
+    When user delete all technicians
+    Then user should verify that all technicians are deleted
+
+    Examples:
+      | TC_ID  |
+      | SI_007 |
+
+  @Continental
+  Scenario Outline: Go to the User Management section, add technician with not random data and try to search one of them (negative scenario)
+
+    Given a user reads test data from "sindri" "UserManagement" by id "<TC_ID>"
+    And user clicks login button
+    When user enters username and password
+    And user clicks on menu and user management item
+    And user verify that user management page is opened
+    When user creates technician with data
+    When user searches one of technicians
+    Then user should verify searched technician is not displayed
+    When user delete all technicians
+    Then user should verify that all technicians are deleted
+
+    Examples:
+      | TC_ID  |
+      | SI_008 |
