@@ -23,6 +23,9 @@ public class UserManagementPage extends BasePage {
     }
     @FindBy(xpath = "//*[contains(text(),'E-mail must be valid')]")
     WebElement invalidEmail;
+
+    @FindBy(css = "#technician-search")
+    WebElement searchFiled;
     @FindBy(xpath = "//*[contains(text(),' Username provided already exists ')]")
     WebElement userAlreadyExists;
 
@@ -74,6 +77,9 @@ public class UserManagementPage extends BasePage {
     @FindBy(xpath = "//*[text()=' Remove allocation ']")
     WebElement removeAllocationButton;
 
+    @FindBy(css = "#technician-0-name")
+    WebElement searchedTechnician;
+
     @FindBy(xpath = "//*[text()='Device associated']")
     WebElement deviceAllocatedButton;
 
@@ -87,8 +93,19 @@ public class UserManagementPage extends BasePage {
 
     GeneralPage gp = new GeneralPage(driver);
 
+    public void serachTehcnican(String searchTehnician){
+        typeText(searchFiled, searchTehnician, "name of technician is entered in search filed");
+    }
     public void clickEditButton(){
         clickElement(editTechnician, "edit technician button");
+    }
+
+    public void VerifySearchedText(String searchedText) throws InterruptedException {
+        comparePartOfText(searchedTechnician, searchedText);
+    }
+
+    public void clearSearch(String emptySearch){
+        typeText(searchFiled, emptySearch, "Clear search field");
     }
     public void verifyUserAlreadyExists(String expextedText){
         compareText(userAlreadyExists, expextedText);
