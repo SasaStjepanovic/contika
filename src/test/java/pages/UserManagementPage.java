@@ -235,7 +235,7 @@ public class UserManagementPage extends BasePage {
     }
 
     public void verifyEditedTechnicians( String attributeType,String randomFirsTechnician, String randomLastTechnician, String randomEmailTechnician) {
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         getAttribute(editTechnicianFristName, randomFirsTechnician, attributeType);
         getAttribute(editTechnicianLastName, randomLastTechnician, attributeType);
         getAttribute(editTechnicianEmail, randomEmailTechnician, attributeType);
