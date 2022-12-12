@@ -8,10 +8,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Reporter;
-import pages.BasePage;
-import pages.GeneralPage;
-import pages.LoginPage;
-import pages.UserManagementPage;
+import pages.*;
 import pages.components.HeaderComponent;
 import tests.BaseTest;
 
@@ -35,6 +32,10 @@ public class BaseSteps extends BaseTest {
     String randomFirstName;
     String randomLastName;
 
+    CheckListManagementPage cl = new CheckListManagementPage(driver);
+
+    String randomCheckListName;
+
     @Before
     public void setup() throws Exception {
         init(browser, wait);
@@ -45,11 +46,13 @@ public class BaseSteps extends BaseTest {
         randomFirstNameTechnician = um.randomTechnicianFirstName();
         randomLastNameTechnician = um.randomTechnicianLastName();
         randomEmailTechnician = um.randomTechnicianEmail();
+
+        randomCheckListName = cl.randomCheckListName();
     }
 
     @After
     public void tearDown() throws IOException {
-        quit();
+//        quit();
     }
 
     @Given("a user reads test data from {string} {string} by id {string}")
@@ -265,5 +268,21 @@ public class BaseSteps extends BaseTest {
         UserManagementPage um = new UserManagementPage(driver);
         um.verifyTechnicianListEmpty();
         um.clearSearch(data.get("emptySearch"));
+    }
+
+    @And("user clicks on menu and checklist management item")
+    public void userClicksOnMenuAndChecklistManagementItem() {
+        new CheckListManagementPage(driver).openChecklistManagementPage();
+    }
+
+    @And("user verify that checklist management page is opened")
+    public void userVerifyThatChecklistManagementPageIsOpened() {
+        new BasePage(driver).checkUrlPage(data.get("urlBasePage"));
+    }
+
+    @When("user enters checklist data")
+    public void userEntersChecklistData() {
+        CheckListManagementPage cl = new CheckListManagementPage(driver);
+        cl.enterChecklistData(data.get("rowLanguage"), randomCheckListName);
     }
 }

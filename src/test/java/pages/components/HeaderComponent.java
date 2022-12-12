@@ -135,8 +135,7 @@ public class HeaderComponent extends BasePage {
         System.out.println("Random last name exactly after generate is :" + randomlast);
         return randomlast;
     }
-//    String randomFirstName = randomFirstName();
-//    String randomlastName = randomLastName();
+
     public void enterFirstAndLastName(String randomTypeYesNo, String firstname, String lastname, String randomFirstname, String randomLastname) throws InterruptedException {
         if(randomTypeYesNo.equalsIgnoreCase("yes")) {
             typeText(accountFirstName, randomFirstname, "First name random je upisan nakon generisanja jel isti kao generisanja_1?");
@@ -159,6 +158,7 @@ public class HeaderComponent extends BasePage {
     public void checkMenuItems(String[] menuItems) throws InterruptedException {
         List<WebElement> menu = driver.findElements(By.xpath("//*[@class='v-list-item__content']/div"));
         for (int i = 0; i< menu.size(); i++){
+            Thread.sleep(1000);
             String item = menu.get(i).getText();
             System.out.println("Test** Actual element is: " + item);
             Thread.sleep(1000);
