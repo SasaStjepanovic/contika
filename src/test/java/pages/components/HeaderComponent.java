@@ -44,6 +44,10 @@ public class HeaderComponent extends BasePage {
     WebElement accountSettingsSaveDisbaled;
     @FindBy(xpath = "//*[contains(text(),'Your information was successfully saved')]")
     WebElement successfullySaved;
+
+    @FindBy(xpath = "//*[contains(text(),'Checklist successfully saved.')]")
+    WebElement successfullySavedCheckList;
+
     @FindBy(xpath = "//*[text()='Ok']")
     WebElement accountSettingsOk;
     @FindBy(xpath = "//*[text()='Close']")
@@ -112,6 +116,10 @@ public class HeaderComponent extends BasePage {
     }
     public void savedVerification(String expectedText){
         compareText(successfullySaved, expectedText);
+    }
+
+    public void savedCheckListVerification(String expectedText){
+        compareText(successfullySavedCheckList, expectedText);
     }
 
     public void accountSettingsMessageVerification(String expectedText1, String expectedText2){

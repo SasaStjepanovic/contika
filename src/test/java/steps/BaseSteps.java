@@ -35,6 +35,8 @@ public class BaseSteps extends BaseTest {
     CheckListManagementPage cl = new CheckListManagementPage(driver);
 
     String randomCheckListName;
+    String randomHeaderName;
+    String randomItemName;
 
     @Before
     public void setup() throws Exception {
@@ -48,11 +50,13 @@ public class BaseSteps extends BaseTest {
         randomEmailTechnician = um.randomTechnicianEmail();
 
         randomCheckListName = cl.randomCheckListName();
+        randomHeaderName = cl.randomHeaderName();
+        randomItemName = cl.randomItemName();
     }
 
     @After
     public void tearDown() throws IOException {
-//        quit();
+        quit();
     }
 
     @Given("a user reads test data from {string} {string} by id {string}")
@@ -281,8 +285,20 @@ public class BaseSteps extends BaseTest {
     }
 
     @When("user enters checklist data")
-    public void userEntersChecklistData() {
+    public void userEntersChecklistData() throws InterruptedException {
         CheckListManagementPage cl = new CheckListManagementPage(driver);
-        cl.enterChecklistData(data.get("rowLanguage"), randomCheckListName);
+        cl.enterChecklistData(data, data, data, data.get("rowLanguage"),data.get("itemType"), data.get("rowStatus"));
+    }
+
+    @When("user delete all checklists")
+    public void userDeleteAllChecklists() throws InterruptedException {
+        CheckListManagementPage cl = new CheckListManagementPage(driver);
+        cl.deleteAllCheckLists(data.get("rowStatus"));
+    }
+
+    @Then("user should verify that all checklists are deleted")
+    public void userShouldVerifyThatAllChecklistsAreDeleted() {
+        CheckListManagementPage cl = new CheckListManagementPage(driver);
+        cl.verifyCheckListEmpty();
     }
 }
