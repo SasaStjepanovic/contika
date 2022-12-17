@@ -117,6 +117,22 @@ public class BasePage {
             System.out.println("Entered text: " + text + " to element: " + log);
         }
     }
+    public void typeTextNoScrool(WebElement element, String text, String log) {
+        explicitWait(element);
+
+        try {
+            new Actions(driver).moveToElement(element).perform();
+            element.click();
+            element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+            element.sendKeys(Keys.DELETE);
+            element.sendKeys(text);
+            System.out.println("Entered text: " + text + " to element: " + log);
+        } catch (Exception e) {
+            e.printStackTrace();
+            element.sendKeys(text);
+            System.out.println("Entered text: " + text + " to element: " + log);
+        }
+    }
 
 
 }

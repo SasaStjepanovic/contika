@@ -172,9 +172,22 @@ public class CheckListManagementPage extends BasePage{
         } else {
             for (int i = 0; i < listOfCheckList.size(); i++) {
                 clickEditButton();
-                chooseStatus(rowStatus);
-                clickSaveButton();
-                new GeneralPage(driver).clickConfirmOK();
+                WebElement element = driver.findElement(By.xpath("//*[@id='status-list']/.."));
+                String statusText = element.getText();
+                if(statusText.equals("Draft")){
+                    System.out.println("Draft status already selected");
+                    chooseStatus("2");
+                    clickSaveButton();
+                    new GeneralPage(driver).clickConfirmOK();
+                    chooseStatus("2");
+                    clickSaveButton();
+                    new GeneralPage(driver).clickConfirmOK();
+                } else {
+                    chooseStatus("2");
+                    clickSaveButton();
+                    new GeneralPage(driver).clickConfirmOK();
+                }
+
                 clickBackButton();
             }
         }
@@ -186,7 +199,23 @@ public class CheckListManagementPage extends BasePage{
             System.out.println("list of checklists are empty !!!");
         } else {
             System.out.println("There are still exist checklist at the list");
+
         }
+    }
+
+    public void editCheckList(){
+        clickEditButton();
+        typeText(checklistName, randomCheckListName(), "edit checklistname is entered");
+        WebElement headerName = driver.findElement(By.xpath("//*[@class='headers']/div[1]//input[contains(@id,'header-name')]"));
+        typeText(headerName, randomHeaderName(), "edit randomHeader name is entered");
+        WebElement nameIteam1 = driver.findElement(By.xpath("//*[@class='headers']/div[1]/div[2]//*[contains(@id,'item-name-')]"));
+        typeText(nameIteam1, randomItemName(), "edit randomItem name is entered");
+
+        clickSaveButton();
+        new GeneralPage(driver).clickConfirmOK();
+        clickBackButton();
+
+
     }
 
 }

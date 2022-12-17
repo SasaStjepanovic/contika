@@ -56,7 +56,7 @@ public class BaseSteps extends BaseTest {
 
     @After
     public void tearDown() throws IOException {
-        quit();
+//        quit();
     }
 
     @Given("a user reads test data from {string} {string} by id {string}")
@@ -300,5 +300,11 @@ public class BaseSteps extends BaseTest {
     public void userShouldVerifyThatAllChecklistsAreDeleted() {
         CheckListManagementPage cl = new CheckListManagementPage(driver);
         cl.verifyCheckListEmpty();
+    }
+
+    @When("user edits check list data")
+    public void userEditsCheckListData() {
+        CheckListManagementPage cl = new CheckListManagementPage(driver);
+        cl.editCheckList();
     }
 }
