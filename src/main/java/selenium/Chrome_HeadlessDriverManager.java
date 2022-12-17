@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 public class Chrome_HeadlessDriverManager extends DriverManager {
 
     @Override
-    public void createWebDriver(){
+    public void createWebDriver() {
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();

@@ -33,16 +33,19 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//div[contains(@class,'visible-lg')]//p[@id='loginErrorMessage']")
     WebElement loginErrorMessage;
 
-    public void clickLoginButton(){
+    public void clickLoginButton() {
         clickElement(loginButton, "Login button is pressed: ");
     }
-    public void enterUsername(String value){
-        typeText(user,value, "Username input field");
+
+    public void enterUsername(String value) {
+        typeText(user, value, "Username input field");
     }
-    public void enterPassword(String value){
-        typeText(pass,value, "Password input field");
+
+    public void enterPassword(String value) {
+        typeText(pass, value, "Password input field");
     }
-    public void signinButton(){
+
+    public void signinButton() {
         clickElement(signin, "Signin button is pressed");
     }
 
@@ -54,20 +57,19 @@ public class LoginPage extends BasePage {
 
     public void signinVerification(String testType, String expectedText, String attributeType) throws InterruptedException {
 
-        if(testType.equalsIgnoreCase("positive")){
-            compareText(titleAfterSuccessfullyLogin,expectedText);
-        } else if(testType.equalsIgnoreCase("negative")){
-            compareText(loginErrorMessage,expectedText);
-        }else if(testType.equalsIgnoreCase("negativeI")) {
+        if (testType.equalsIgnoreCase("positive")) {
+            compareText(titleAfterSuccessfullyLogin, expectedText);
+        } else if (testType.equalsIgnoreCase("negative")) {
+            compareText(loginErrorMessage, expectedText);
+        } else if (testType.equalsIgnoreCase("negativeI")) {
             getAttribute(user, expectedText, attributeType);
-        }
-        else {
+        } else {
             getAttribute(pass, expectedText, attributeType);
         }
 
     }
 
-    public void signoutVerification(String expectedText){
+    public void signoutVerification(String expectedText) {
         compareText(loginButton, expectedText);
     }
 

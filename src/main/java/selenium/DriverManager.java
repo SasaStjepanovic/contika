@@ -8,8 +8,8 @@ public abstract class DriverManager {
 
     public abstract void createWebDriver();
 
-    public void quitWebDriver(){
-        if (null != driver){
+    public void quitWebDriver() {
+        if (null != driver) {
             driver.quit();
             driver = null;
         }

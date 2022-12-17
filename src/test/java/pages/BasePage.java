@@ -19,18 +19,20 @@ public class BasePage {
     }
 
     int waitTime = 30;
+
     public void explicitWait(WebElement element) {
         WebDriverWait webDriverWait = new WebDriverWait(driver, waitTime);
         webDriverWait.until(ExpectedConditions.visibilityOf(element));
         webDriverWait.until(ExpectedConditions.elementToBeClickable(element));
     }
-    public void scrollToElement (WebElement element){
+
+    public void scrollToElement(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", element);
     }
 
-    public void scroll(String x,String y){
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor)driver;
-        javascriptExecutor.executeScript("window.scrollBy("+x+","+y+")");
+    public void scroll(String x, String y) {
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        javascriptExecutor.executeScript("window.scrollBy(" + x + "," + y + ")");
     }
 
     public void compareText(WebElement element, String expectedText) {
@@ -38,6 +40,7 @@ public class BasePage {
         Assert.assertEquals(actualTitle, expectedText);
         System.out.println("Actual title is: " + actualTitle);
     }
+
     public void comparePartOfText(WebElement element, String expectedText) throws InterruptedException {
         String actualTitle = element.getText();
         Thread.sleep(5000);
@@ -45,7 +48,8 @@ public class BasePage {
         Thread.sleep(500);
         Assert.assertTrue(actualTitle.contains(expectedText), actualTitle);
     }
-    public void getAttribute(WebElement element, String expectedValue, String attributeType){
+
+    public void getAttribute(WebElement element, String expectedValue, String attributeType) {
         String actualValue = element.getAttribute(attributeType);
         System.out.println("Actual value of element is : " + actualValue);
         Assert.assertEquals(actualValue, expectedValue);
@@ -92,6 +96,7 @@ public class BasePage {
             element.click();
         }
     }
+
     public void checkUrlPage(String url) {
         String expextedUrl = "https://webportal-api-v2-2.val.eu-central-1.sindri.continental.cloud/" + url;
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -117,6 +122,7 @@ public class BasePage {
             System.out.println("Entered text: " + text + " to element: " + log);
         }
     }
+
     public void typeTextNoScrool(WebElement element, String text, String log) {
         explicitWait(element);
 

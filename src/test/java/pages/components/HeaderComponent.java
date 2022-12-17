@@ -75,54 +75,64 @@ public class HeaderComponent extends BasePage {
                 throw new Exception("No such page: " + pageName);
         }
     }
-    public void navigateToLicencePage(){
-        clickElement(licencePage,"licence page");
-    }
-    public void navigateToUserPage(){
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        clickElement(userPage,"user page");
-        String expextedUrl = "https://webportal-api-v2-2.val.eu-central-1.sindri.continental.cloud/users";
-        String actualUrl = driver.getCurrentUrl();
-        if (expextedUrl.equals(actualUrl)){
-            System.out.println("Do nothing, User Management page already opened");
-        } else {
-            clickElement(userPage,"user page");
-        }
-    }
-    public void navigateToCheckListPage(){
-        clickElement(checklistPage,"checklist page");
+
+    public void navigateToLicencePage() {
+        clickElement(licencePage, "licence page");
     }
 
-    public void isSaveButtonDisabled(String expectedValue, String attributeType){
-        getAttribute(accountSettingsSaveDisbaled,expectedValue, attributeType);
+    public void navigateToUserPage() {
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        clickElement(userPage, "user page");
+        String expextedUrl = "https://webportal-api-v2-2.val.eu-central-1.sindri.continental.cloud/users";
+        String actualUrl = driver.getCurrentUrl();
+        if (expextedUrl.equals(actualUrl)) {
+            System.out.println("Do nothing, User Management page already opened");
+        } else {
+            clickElement(userPage, "user page");
+        }
     }
-    public void clickAccount(){
+
+    public void navigateToCheckListPage() {
+        clickElement(checklistPage, "checklist page");
+    }
+
+    public void isSaveButtonDisabled(String expectedValue, String attributeType) {
+        getAttribute(accountSettingsSaveDisbaled, expectedValue, attributeType);
+    }
+
+    public void clickAccount() {
         clickElement(accountSettings, "Account settings");
     }
-    public void clickMenu(){
-        clickElement(menu,"Menu button");
+
+    public void clickMenu() {
+        clickElement(menu, "Menu button");
     }
-    public void clickProfil(){
-        clickElement(profil,"Profile button");
+
+    public void clickProfil() {
+        clickElement(profil, "Profile button");
     }
-    public void clickLogout(){
+
+    public void clickLogout() {
         clickElement(signout, "Logout button");
     }
-    public void clickSaveButton(){
+
+    public void clickSaveButton() {
         clickElement(accountSettingsSave, "Save button Account settings ");
     }
-    public void clickCloseButton(){
+
+    public void clickCloseButton() {
         clickElement(accountSettingsClose, "Close button Account settings ");
     }
-    public void savedVerification(String expectedText){
+
+    public void savedVerification(String expectedText) {
         compareText(successfullySaved, expectedText);
     }
 
-    public void savedCheckListVerification(String expectedText){
+    public void savedCheckListVerification(String expectedText) {
         compareText(successfullySavedCheckList, expectedText);
     }
 
-    public void accountSettingsMessageVerification(String expectedText1, String expectedText2){
+    public void accountSettingsMessageVerification(String expectedText1, String expectedText2) {
         compareText(firstnameAccountEmptyMessage, expectedText1);
         compareText(lastnameAccountEmptyMessage, expectedText2);
     }
@@ -145,33 +155,34 @@ public class HeaderComponent extends BasePage {
     }
 
     public void enterFirstAndLastName(String randomTypeYesNo, String firstname, String lastname, String randomFirstname, String randomLastname) throws InterruptedException {
-        if(randomTypeYesNo.equalsIgnoreCase("yes")) {
+        if (randomTypeYesNo.equalsIgnoreCase("yes")) {
             typeText(accountFirstName, randomFirstname, "First name random je upisan nakon generisanja jel isti kao generisanja_1?");
             typeText(accountLastName, randomLastname, "Last name");
-        }else{
-            typeText(accountFirstName, firstname,"First name");
-            typeText(accountLastName, lastname,"Last name");
+        } else {
+            typeText(accountFirstName, firstname, "First name");
+            typeText(accountLastName, lastname, "Last name");
         }
     }
-    public void verifyCredentialsAfterRandomChanges( String attributeType,String randomFirstName, String randomlastName) {
-            getAttribute(accountFirstName, randomFirstName, attributeType);
-            getAttribute(accountLastName, randomlastName, attributeType);
+
+    public void verifyCredentialsAfterRandomChanges(String attributeType, String randomFirstName, String randomlastName) {
+        getAttribute(accountFirstName, randomFirstName, attributeType);
+        getAttribute(accountLastName, randomlastName, attributeType);
     }
 
-    public void verifyCredentialsAfterNotRandomChanges( String attributeType,String firstname,String lastname) {
-            getAttribute(accountFirstName, firstname, attributeType);
-            getAttribute(accountLastName, lastname, attributeType);
+    public void verifyCredentialsAfterNotRandomChanges(String attributeType, String firstname, String lastname) {
+        getAttribute(accountFirstName, firstname, attributeType);
+        getAttribute(accountLastName, lastname, attributeType);
     }
 
     public void checkMenuItems(String[] menuItems) throws InterruptedException {
         List<WebElement> menu = driver.findElements(By.xpath("//*[@class='v-list-item__content']/div"));
-        for (int i = 0; i< menu.size(); i++){
+        for (int i = 0; i < menu.size(); i++) {
             Thread.sleep(1000);
             String item = menu.get(i).getText();
             System.out.println("Test** Actual element is: " + item);
             Thread.sleep(1000);
             Assert.assertEquals(item, menuItems[i], "Menu item not displayed");
-            System.out.println("Menu item: " +item+ " is displayed");
+            System.out.println("Menu item: " + item + " is displayed");
             Assert.assertTrue(menu.get(i).isDisplayed(), menuItems[i]);
         }
     }
