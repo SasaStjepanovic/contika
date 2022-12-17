@@ -21,6 +21,7 @@ public class UserManagementPage extends BasePage {
         headerComponent = new HeaderComponent(driver);
         PageFactory.initElements(driver, this);
     }
+
     @FindBy(xpath = "//*[contains(text(),'E-mail must be valid')]")
     WebElement invalidEmail;
 
@@ -93,10 +94,11 @@ public class UserManagementPage extends BasePage {
 
     GeneralPage gp = new GeneralPage(driver);
 
-    public void serachTehcnican(String searchTehnician){
+    public void serachTehcnican(String searchTehnician) {
         typeText(searchFiled, searchTehnician, "name of technician is entered in search filed");
     }
-    public void clickEditButton(){
+
+    public void clickEditButton() {
         clickElement(editTechnician, "edit technician button");
     }
 
@@ -104,23 +106,26 @@ public class UserManagementPage extends BasePage {
         comparePartOfText(searchedTechnician, searchedText);
     }
 
-    public void clearSearch(String emptySearch){
+    public void clearSearch(String emptySearch) {
         typeText(searchFiled, emptySearch, "Clear search field");
     }
-    public void verifyUserAlreadyExists(String expextedText){
+
+    public void verifyUserAlreadyExists(String expextedText) {
         compareText(userAlreadyExists, expextedText);
     }
-    public void verifyInvalidEmail(String expextedText){
-        compareText(invalidEmail,expextedText);
+
+    public void verifyInvalidEmail(String expextedText) {
+        compareText(invalidEmail, expextedText);
     }
 
     public void closeTechnician() {
         clickElement(closeTechnicianForm, "close button is pressed");
     }
 
-    public void closeEditTechnician(){
-        clickElement(closeEditTechnicianForm,"edit technician winodw is closed");
+    public void closeEditTechnician() {
+        clickElement(closeEditTechnicianForm, "edit technician winodw is closed");
     }
+
     public void clickCreate() {
         clickElement(createTechnician, "create button is pressed ");
     }
@@ -203,7 +208,7 @@ public class UserManagementPage extends BasePage {
             typeText(technicianFirstName, firstname, "First name");
             typeText(technicianLastName, lastname, "Last name");
             typeText(technicianEmail, email, "Email");
-            if (createTechnician.isEnabled()){
+            if (createTechnician.isEnabled()) {
                 clickCreate();
                 new GeneralPage(driver).clickConfirmOK();
             } else {
@@ -213,7 +218,7 @@ public class UserManagementPage extends BasePage {
         }
     }
 
-    public void editTechnician(String randomTypeYesNo,String firstname, String lastname, String email, String randomFirst, String randomLast, String randomEmail){
+    public void editTechnician(String randomTypeYesNo, String firstname, String lastname, String email, String randomFirst, String randomLast, String randomEmail) {
         clickEditButton();
         if (randomTypeYesNo.equalsIgnoreCase("yes")) {
             driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
@@ -223,8 +228,7 @@ public class UserManagementPage extends BasePage {
             clickElement(updateInformation, "update information button after editing");
             new GeneralPage(driver).clickConfirmOK();
             closeEditTechnician();
-            }
-         else {
+        } else {
             typeText(editTechnicianFristName, firstname, "First name");
             typeText(editTechnicianLastName, lastname, "Last name");
             typeText(editTechnicianEmail, email, "Email");
@@ -234,7 +238,7 @@ public class UserManagementPage extends BasePage {
         }
     }
 
-    public void verifyEditedTechnicians( String attributeType,String randomFirsTechnician, String randomLastTechnician, String randomEmailTechnician) {
+    public void verifyEditedTechnicians(String attributeType, String randomFirsTechnician, String randomLastTechnician, String randomEmailTechnician) {
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         getAttribute(editTechnicianFristName, randomFirsTechnician, attributeType);
         getAttribute(editTechnicianLastName, randomLastTechnician, attributeType);
@@ -242,9 +246,9 @@ public class UserManagementPage extends BasePage {
         closeEditTechnician();
     }
 
-    public void licenceAllocated(){
+    public void licenceAllocated() {
         clickElement(editTechnician, "edit technician button");
-        try{
+        try {
             clickElement(licenceAllocatedButton, "licence allocated button");
         } catch (Exception e) {
             e.printStackTrace();
@@ -252,8 +256,8 @@ public class UserManagementPage extends BasePage {
         }
     }
 
-    public void verifyRemoveAllocationButton(String expextedText){
-        if (!removeAllocatedButton.isEnabled()){
+    public void verifyRemoveAllocationButton(String expextedText) {
+        if (!removeAllocatedButton.isEnabled()) {
             compareText(removeAllocationButton, expextedText);
         } else {
             System.out.println("Remove button is enabled");
@@ -261,7 +265,7 @@ public class UserManagementPage extends BasePage {
         }
     }
 
-    public void verifyTechnicianListEmpty(){
+    public void verifyTechnicianListEmpty() {
         List<WebElement> listOfTechnicians = driver.findElements(By.xpath("//div[@class='v-data-table__wrapper']//tbody//tr"));
         if (listOfTechnicians.get(0).getText().equals("No data available")) {
             System.out.println("list of technicians are empty !!!");

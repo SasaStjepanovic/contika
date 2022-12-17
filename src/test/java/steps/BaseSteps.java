@@ -56,7 +56,7 @@ public class BaseSteps extends BaseTest {
 
     @After
     public void tearDown() throws IOException {
-//        quit();
+        quit();
     }
 
     @Given("a user reads test data from {string} {string} by id {string}")
@@ -76,7 +76,7 @@ public class BaseSteps extends BaseTest {
 
     @When("user enters username and password")
     public void userEntersUsernameAndPassword() throws InterruptedException {
-        new LoginPage(driver).signIn(data.get("userName"),data.get("password"));
+        new LoginPage(driver).signIn(data.get("userName"), data.get("password"));
     }
 
     @And("hover")
@@ -91,14 +91,14 @@ public class BaseSteps extends BaseTest {
 
     @Then("user should be verified login action")
     public void userShouldBeVerifiedLoginAction() throws InterruptedException {
-        new LoginPage(driver).signinVerification(data.get("testType"),data.get("expectedText"), data.get("attributeType"));
+        new LoginPage(driver).signinVerification(data.get("testType"), data.get("expectedText"), data.get("attributeType"));
     }
 
     @Then("user should be verify all menu items")
     public void userShouldBeVerifyAllMenuItems() throws InterruptedException {
         HeaderComponent hp = new HeaderComponent(driver);
         hp.clickMenu();
-        hp.checkMenuItems(new String[]{data.get("menuItems0"),data.get("menuItems1"),data.get("menuItems2")});
+        hp.checkMenuItems(new String[]{data.get("menuItems0"), data.get("menuItems1"), data.get("menuItems2")});
     }
 
     @And("user clicks signout button")
@@ -124,7 +124,7 @@ public class BaseSteps extends BaseTest {
     @When("user changes first and last name")
     public void userChangesFirstAndLastName() throws InterruptedException {
         HeaderComponent hp = new HeaderComponent(driver);
-        hp.enterFirstAndLastName(data.get("randomTypeYesNo"),data.get("firstnameAS"),data.get("lastnameAS"), randomFirstName, randomLastName);
+        hp.enterFirstAndLastName(data.get("randomTypeYesNo"), data.get("firstnameAS"), data.get("lastnameAS"), randomFirstName, randomLastName);
     }
 
     @And("user clicks save button")
@@ -141,7 +141,7 @@ public class BaseSteps extends BaseTest {
 
     @Then("user should be verify random changed credentials")
     public void userShouldBeVerifyRandomChangedCredentials() {
-        new HeaderComponent(driver).verifyCredentialsAfterRandomChanges(data.get("attributeType"),randomFirstName, randomLastName);
+        new HeaderComponent(driver).verifyCredentialsAfterRandomChanges(data.get("attributeType"), randomFirstName, randomLastName);
     }
 
     @And("user closes Account setting window")
@@ -169,7 +169,7 @@ public class BaseSteps extends BaseTest {
 
     @Then("user should be verify not random changed credentials")
     public void userShouldBeVerifyNotRandomChangedCredentials() {
-        new HeaderComponent(driver).verifyCredentialsAfterNotRandomChanges(data.get("attributeType"),data.get("firstnameAS"),data.get("lastnameAS"));
+        new HeaderComponent(driver).verifyCredentialsAfterNotRandomChanges(data.get("attributeType"), data.get("firstnameAS"), data.get("lastnameAS"));
     }
 
     @When("user deletes first technician")
@@ -182,7 +182,7 @@ public class BaseSteps extends BaseTest {
     public void userCreatesTechnicianWithData() throws InterruptedException {
         UserManagementPage um = new UserManagementPage(driver);
         um.addTechnician();
-        um.enterTehnicianData(data,data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"));
+        um.enterTehnicianData(data, data.get("randomTypeYesNo"), data.get("firstNameTechnician"), data.get("lastNameTechnician"), data.get("emailTechnician"));
         um.closeTechnician();
     }
 
@@ -195,8 +195,8 @@ public class BaseSteps extends BaseTest {
     public void userCreatesTwoTechniciansWithSameData() throws InterruptedException {
         UserManagementPage um = new UserManagementPage(driver);
         um.addTechnician();
-        um.enterTehnicianData(data,data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"));
-        um.enterTehnicianData(data,data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"));
+        um.enterTehnicianData(data, data.get("randomTypeYesNo"), data.get("firstNameTechnician"), data.get("lastNameTechnician"), data.get("emailTechnician"));
+        um.enterTehnicianData(data, data.get("randomTypeYesNo"), data.get("firstNameTechnician"), data.get("lastNameTechnician"), data.get("emailTechnician"));
     }
 
     @Then("user should verify that is not posible to create user with the same data")
@@ -216,13 +216,13 @@ public class BaseSteps extends BaseTest {
     public void userCreatesTechnicianWithInvalidEmailAddress() throws InterruptedException {
         UserManagementPage um = new UserManagementPage(driver);
         um.addTechnician();
-        um.enterTehnicianData(data,data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"));
+        um.enterTehnicianData(data, data.get("randomTypeYesNo"), data.get("firstNameTechnician"), data.get("lastNameTechnician"), data.get("emailTechnician"));
     }
 
     @When("user edit personal information of existing technician")
     public void userEditPersonalInformationOfExistingTechnician() {
         UserManagementPage um = new UserManagementPage(driver);
-        um.editTechnician(data.get("randomTypeYesNo"),data.get("firstNameTechnician"),data.get("lastNameTechnician"),data.get("emailTechnician"), randomFirstNameTechnician, randomLastNameTechnician, randomEmailTechnician);
+        um.editTechnician(data.get("randomTypeYesNo"), data.get("firstNameTechnician"), data.get("lastNameTechnician"), data.get("emailTechnician"), randomFirstNameTechnician, randomLastNameTechnician, randomEmailTechnician);
     }
 
     @When("user edit licence allocated of existing technician")
@@ -287,7 +287,7 @@ public class BaseSteps extends BaseTest {
     @When("user enters checklist data")
     public void userEntersChecklistData() throws InterruptedException {
         CheckListManagementPage cl = new CheckListManagementPage(driver);
-        cl.enterChecklistData(data, data, data, data.get("rowLanguage"),data.get("itemType"), data.get("rowStatus"));
+        cl.enterChecklistData(data, data, data, data.get("rowLanguage"), data.get("itemType"), data.get("rowStatus"), data.get("testType"));
     }
 
     @When("user delete all checklists")
@@ -306,5 +306,21 @@ public class BaseSteps extends BaseTest {
     public void userEditsCheckListData() {
         CheckListManagementPage cl = new CheckListManagementPage(driver);
         cl.editCheckList();
+    }
+
+    @And("user press save button")
+    public void userPressSaveButton() {
+        CheckListManagementPage cl = new CheckListManagementPage(driver);
+        cl.clickSaveButton();
+    }
+
+    @Then("user should verify that checklist can not without header")
+    public void userShouldVerifyThatChecklistCanNotWithoutHeader() {
+        new CheckListManagementPage(driver).verifyEmptyCheckList(data.get("emptyCheckListMessage"));
+    }
+
+    @Then("user should verify that checklist can not be without item")
+    public void userShouldVerifyThatChecklistCanNotBeWithoutItem() {
+        new CheckListManagementPage(driver).verifyEmptyCheckList(data.get("emptyCheckListMessage"));
     }
 }
