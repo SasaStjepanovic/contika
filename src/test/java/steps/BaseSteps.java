@@ -323,4 +323,16 @@ public class BaseSteps extends BaseTest {
     public void userShouldVerifyThatChecklistCanNotBeWithoutItem() {
         new CheckListManagementPage(driver).verifyEmptyCheckList(data.get("emptyCheckListMessage"));
     }
+
+    @Given("I am logged in {string} AND {string}")
+    public void iAmLoggedInAND(String username, String password) throws InterruptedException {
+        LoginPage lp = new LoginPage(driver);
+        lp.clickLoginButton();
+        lp.signIn(username, password);
+    }
+
+    @Then("user should be verified login action {string} AND {string} AND {string}")
+    public void userShouldBeVerifiedLoginActionANDAND(String testType, String expectedText, String attributeType) throws InterruptedException {
+        new LoginPage(driver).signinVerification(testType, expectedText, attributeType);
+    }
 }
