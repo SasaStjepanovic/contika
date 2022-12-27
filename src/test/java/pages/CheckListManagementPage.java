@@ -28,6 +28,9 @@ public class CheckListManagementPage extends BasePage {
     @FindBy(xpath = "//div[@class='v-data-table__wrapper']//tbody/tr//td[6]/span//button[1]")
     WebElement editChecklist;
 
+    @FindBy(xpath = "//div[@class='v-data-table__wrapper']//tbody/tr//td[3]//span")
+    WebElement versionNumber;
+
     @FindBy(css = "#checklist-name")
     WebElement checklistName;
 
@@ -36,6 +39,9 @@ public class CheckListManagementPage extends BasePage {
 
     @FindBy(xpath = "//*[text()='Back to Checklist']")
     WebElement backButton;
+
+    @FindBy(xpath = "//div[@class='v-data-table__wrapper']//tbody/tr//td[6]/span//button[2]")
+    WebElement newVersionChecklistButton;
 
     @FindBy(css = "#swal2-content")
     WebElement checkListEmpty;
@@ -60,6 +66,10 @@ public class CheckListManagementPage extends BasePage {
 
     public void clickEditButton() {
         clickElement(editChecklist, "edit button is pressed");
+    }
+
+    public void clickNewVersionButton(){
+        clickElement(newVersionChecklistButton, "new version button is pressed");
     }
 
     public void clickBackButton() {
@@ -244,5 +254,17 @@ public class CheckListManagementPage extends BasePage {
         clickSaveButton();
         new GeneralPage(driver).clickConfirmOK();
         clickBackButton();
+    }
+
+    public void createNewVersionOfCheckList(String rowStatus){
+        clickNewVersionButton();
+        chooseStatus(rowStatus);
+        clickSaveButton();
+        new GeneralPage(driver).clickConfirmOK();
+        clickBackButton();
+    }
+
+    public void verifyVersionNumber(String expectedValue){
+        compareText(versionNumber, expectedValue);
     }
 }

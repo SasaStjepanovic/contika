@@ -335,4 +335,15 @@ public class BaseSteps extends BaseTest {
     public void userShouldBeVerifiedLoginActionANDAND(String testType, String expectedText, String attributeType) throws InterruptedException {
         new LoginPage(driver).signinVerification(testType, expectedText, attributeType);
     }
+
+    @When("user creates new version checklist")
+    public void userCreatesNewVersionChecklist() {
+        CheckListManagementPage cp = new CheckListManagementPage(driver);
+        cp.createNewVersionOfCheckList(data.get("rowStatus"));
+    }
+
+    @Then("user should verify version number")
+    public void userShouldVerifyVersionNumber() {
+        new CheckListManagementPage(driver).verifyVersionNumber(data.get("expectedText"));
+    }
 }

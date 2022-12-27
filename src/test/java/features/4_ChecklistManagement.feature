@@ -66,3 +66,20 @@ Feature: Checklist Management scenarios include create check lists with headers 
       | TC_ID  |
       | SI_005 |
 
+  @Continental
+  Scenario Outline: Go to the Checklist Management section, create check list and than new version of check list
+
+    Given a user reads test data from "sindri" "ChecklistManagement" by id "<TC_ID>"
+    And user clicks login button
+    When user enters username and password
+    And user clicks on menu and checklist management item
+    And user verify that checklist management page is opened
+    When user enters checklist data
+    When user creates new version checklist
+    Then user should verify version number
+    When user delete all checklists
+    Then user should verify that all checklists are deleted
+
+    Examples:0
+      | TC_ID  |
+      | SI_006 |
