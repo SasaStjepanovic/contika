@@ -23,6 +23,14 @@ public class BaseSteps extends BaseTest {
     String env = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("env");
     String wait = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("wait");
 
+    String ScrShoot1 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("ScrShoot1");
+
+    String ScrShoot2 = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("ScrShoot2");
+
+    String ScrShootDesc = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("ScrShootDesc");
+
+    String ScrYesOrNo = Reporter.getCurrentTestResult().getTestContext().getCurrentXmlTest().getParameter("ScrYesOrNo");
+
     UserManagementPage um = new UserManagementPage(driver);
 
     String randomFirstNameTechnician;
@@ -42,6 +50,8 @@ public class BaseSteps extends BaseTest {
     public void setup() throws Exception {
         init(browser, wait);
         openSindriApp(env);
+        new BasePage(driver).reportScreenshotAllure(ScrShoot1, ScrShootDesc, ScrYesOrNo);
+
         randomFirstName = hc.randomFirstName();
         randomLastName = hc.randomLastName();
 
@@ -56,7 +66,9 @@ public class BaseSteps extends BaseTest {
 
     @After
     public void tearDown() throws IOException {
+        new BasePage(driver).reportScreenshotAllure(ScrShoot2, ScrShootDesc, ScrYesOrNo);
         quit();
+
     }
 
     @Given("a user reads test data from {string} {string} by id {string}")
