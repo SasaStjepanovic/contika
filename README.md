@@ -19,6 +19,7 @@
 #### User Management page ####
 #### Checklist Management page ####
 ## Project status
+## Project status2
 
 ### Project development is in the progress
 
