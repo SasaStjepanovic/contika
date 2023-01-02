@@ -13,7 +13,6 @@
 #### apache-maven-3.8.6 ####
 #### Java(TM) SE Runtime Environment (build 1.8.0_202-b08) ####
 ## Features
-## Features
 
 #### Login page ####
 #### Login page ####
