@@ -28,7 +28,7 @@ public class BaseTest {
             }
             break;
             case "BIZ": {
-                driver.get("https://www.yahoo.com/");
+                driver.get("https://www.google.com/");
             }
             break;
             default:
