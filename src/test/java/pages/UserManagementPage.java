@@ -21,7 +21,6 @@ public class UserManagementPage extends BasePage {
         headerComponent = new HeaderComponent(driver);
         PageFactory.initElements(driver, this);
     }
-
     @FindBy(xpath = "//*[contains(text(),'E-mail must be valid')]")
     WebElement invalidEmail;
 

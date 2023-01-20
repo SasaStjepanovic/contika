@@ -67,7 +67,7 @@ public class BaseSteps extends BaseTest {
     @After
     public void tearDown() throws IOException {
         new BasePage(driver).reportScreenshotAllure(ScrShoot2, ScrShootDesc, ScrYesOrNo);
-        quit();
+//        quit();
 
     }
 

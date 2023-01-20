@@ -24,7 +24,7 @@ public class BaseTest {
             }
             break;
             case "PROD": {
-                driver.get("https://webportal-api-v2-2.val.eu-central-1.sindri.continental.cloud/landing-page/");
+
             }
             break;
             case "BIZ": {
