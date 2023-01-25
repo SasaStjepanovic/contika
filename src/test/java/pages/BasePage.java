@@ -89,6 +89,23 @@ public class BasePage {
         }
     }
 
+    public void clickElementJS(WebElement element, String log) {
+        explicitWait(element);
+
+        try {
+            scrollToElement(element);
+            new Actions(driver).moveToElement(element).build().perform();
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
+            System.out.println("Clicked element: " + log);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", element);
+            System.out.println("Clicked element: " + log);
+        }
+    }
+
     public void clickElement(WebElement element) {
         explicitWait(element);
 
