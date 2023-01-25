@@ -9,8 +9,8 @@
 #    Examples:
 #      | username                                        |  password     | testType |  expectedText  | attributeType |
 #      | continental.automation+sale@gmail.com           |Sale_The_Man_1 | positive | ALL MY LICENCES| value |
-#
-#
+
+
 #  @Continental
 #  Scenario Outline: Login invalid user(wrong password)
 #
